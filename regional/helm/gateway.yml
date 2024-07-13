@@ -1,0 +1,50 @@
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+
+podAnnotations:
+  ad.datadoghq.com/istio-proxy.check_names: '["envoy"]'
+  ad.datadoghq.com/istio-proxy.init_configs: "[{}]"
+
+  ad.datadoghq.com/istio-proxy.instances: |
+    [
+      {
+       "openmetrics_endpoint": "http://%%host%%:15020/stats/prometheus"
+      }
+    ]
+
+  ad.datadoghq.com/istio-proxy.logs: '[{"source":"envoy"}]'
+
+podDisruptionBudget:
+  maxUnavailable: 1
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 2000m
+    memory: 1024Mi
+
+service:
+  type: NodePort
+
+  annotations:
+    cloud.google.com/app-protocols: '{ "https": "HTTPS"}'
+    cloud.google.com/backend-config: '{"default": "istio-gateway-backend"}'
+    cloud.google.com/neg: '{ "ingress": true }'
+
+tolerations:
+  - key: "dedicated"
+    value: "gateway"
+    effect: "NoExecute"
+
+topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: topology.kubernetes.io/zone
+    whenUnsatisfiable: ScheduleAnyway
+    labelSelector:
+      matchLabels:
+        app: gateway
