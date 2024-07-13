@@ -1,0 +1,37 @@
+# Pre-commit
+# https://github.com/pre-commit/pre-commit
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-symlinks
+
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.92.0
+    hooks:
+      - id: terraform_fmt
+
+      # To speed up local validation add the following to your ~/.zshrc:
+      # export TF_PLUGIN_CACHE_DIR=$HOME/.terraform.d/plugin-cache
+
+      - id: terraform_validate
+        args:
+          - --hook-config=--retry-once-with-cleanup=true
+          - --tf-init-args=-upgrade
+        exclude: tests/fixtures/shared
+
+      # Always run after terraform_validate
+
+      - id: terraform_docs
+
+  - repo: https://github.com/bridgecrewio/checkov.git
+    rev: 3.2.186
+    hooks:
+      - id: checkov
+        verbose: true
+        args:
+          - --quiet

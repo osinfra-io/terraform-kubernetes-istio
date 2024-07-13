@@ -1,0 +1,43 @@
+# .gitignore
+# https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+
+# Ignore provider lock file
+.terraform.lock.hcl
+
+# Ignore any local.tfvars. Most .tfvars files are managed as part of configuration and so should
+# be included in version control.
+local.tfvars
+
+# Provider.tf is used for local development of modules and shouldn't be added to repos.
+provider.tf
+
+# Ignore override files as they are usually used to override ressources locally
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore plan output files
+plan.out
+
+# Ignore Infracost directories and files
+.infracost
+
+# Other Files
+*.log
+*.bak
+*.swp
+*.tmp
+*.gz
+*.tgz
+*.tar

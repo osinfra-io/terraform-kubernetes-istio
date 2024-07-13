@@ -1,0 +1,13 @@
+name: Dependabot Approve and Merge
+
+on: pull_request_target
+
+permissions:
+  contents: read
+
+jobs:
+  dependabot:
+    name: Dependabot
+    uses: osinfra-io/github-misc-called-workflows/.github/workflows/dependabot.yml@v0.1.5
+    secrets:
+      pr_approve_and_merge_pat: ${{ secrets.PR_APPROVE_AND_MERGE_PAT }}
