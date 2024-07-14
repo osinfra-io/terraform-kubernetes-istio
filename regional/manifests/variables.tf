@@ -30,13 +30,13 @@ variable "gke_info_istio_virtual_services" {
 }
 
 variable "istio_failover_from_region" {
-  description = "The region to failover from"
+  description = "The region to fail over from"
   type        = string
   default     = ""
 }
 
 variable "istio_failover_to_region" {
-  description = "The region to failover to"
+  description = "The region to fail over to"
   type        = string
   default     = ""
 }
