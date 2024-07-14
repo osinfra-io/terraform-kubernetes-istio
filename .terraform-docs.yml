@@ -1,0 +1,5 @@
+# Terraform Docs
+# https://github.com/terraform-docs/terraform-docs
+
+settings:
+  indent: 3

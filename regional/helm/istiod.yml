@@ -1,0 +1,50 @@
+global:
+  proxy:
+    tracer: none
+
+  meshID: default
+  network: standard-shared
+
+meshConfig:
+  accessLogFile: /dev/stdout
+  defaultConfig:
+    proxyMetadata:
+      ISTIO_META_DNS_CAPTURE: "true"
+      ISTIO_META_DNS_AUTO_ALLOCATE: "true"
+
+pilot:
+  autoscaleEnabled: true
+  autoscaleMin: 1
+  autoscaleMax: 5
+
+  cpu:
+    targetAverageUtilization: 80
+
+  podAnnotations:
+    ad.datadoghq.com/discovery.check_names: '["istio"]'
+    ad.datadoghq.com/discovery.init_configs: '[{}]'
+
+    ad.datadoghq.com/discovery.instances: |
+      [
+        {
+          "istiod_endpoint": "http://%%host%%:15014/metrics",
+          "use_openmetrics": "true"
+        }
+      ]
+
+    ad.datadoghq.com/discovery.logs: '[{"source":"istio"}]'
+
+  podLabels:
+    tags.datadoghq.com/service: istiod
+    tags.datadoghq.com/source: istio
+
+  rollingMaxSurge: 100%
+  rollingMaxUnavailable: 25%
+
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: topology.kubernetes.io/zone
+      whenUnsatisfiable: ScheduleAnyway
+      labelSelector:
+        matchLabels:
+          app: istiod
