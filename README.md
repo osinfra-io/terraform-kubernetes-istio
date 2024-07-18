@@ -104,7 +104,7 @@ No modules.
 | <a name="output_istio_gateway_mci_ssl_certificate_name"></a> [istio\_gateway\_mci\_ssl\_certificate\_name](#output\_istio\_gateway\_mci\_ssl\_certificate\_name) | The name of the SSL certificate for the Istio Gateway multi-cluster ingress |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
-### 📓 Terraform Regional Documentation
+## 📓 Terraform Regional Documentation
 
 - [regional](regional/README.md)
 - [regional/manifests](regional/manifests/README.md)
