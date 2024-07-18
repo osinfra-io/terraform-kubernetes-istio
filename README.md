@@ -1,6 +1,5 @@
 # <img align="left" width="45" height="45" src="https://github.com/user-attachments/assets/ce1fe535-f4f3-451f-bbd9-45fde04c000c"> Kubernetes - Istio Terraform Module
 
-
 **[GitHub Actions](https://github.com/osinfra-io/terraform-kubernetes-istio/actions):**
 
 [![Terraform Tests](https://github.com/osinfra-io/terraform-kubernetes-istio/actions/workflows/test.yml/badge.svg)](https://github.com/osinfra-io/terraform-kubernetes-istio/actions/workflows/test.yml) [![Dependabot](https://github.com/osinfra-io/terraform-kubernetes-istio/actions/workflows/dependabot.yml/badge.svg)](https://github.com/osinfra-io/terraform-kubernetes-istio/actions/workflows/dependabot.yml)
@@ -35,8 +34,8 @@ See the documentation for setting up a local development environment [here](http
 
 ### 🛠️ Tools
 
-- [checkov](https://www.checkov.io)
-- [helm](https://helm.sh)
+- [checkov](https://github.com/bridgecrewio/checkov)
+- [helm](https://github.com/helm/helm)
 - [infracost](https://github.com/infracost/infracost)
 - [pre-commit](https://github.com/pre-commit/pre-commit)
 - [pre-commit-terraform](https://github.com/antonbabenko/pre-commit-terraform)
@@ -74,7 +73,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 5.37.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | 5.38.0 |
 
 ### Modules
 
