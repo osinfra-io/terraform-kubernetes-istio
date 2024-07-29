@@ -11,7 +11,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 5.38.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | 5.37.0 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | 2.14.0 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.31.0 |
 
@@ -66,7 +66,7 @@ No modules.
 | <a name="input_istio_version"></a> [istio\_version](#input\_istio\_version) | The version of istio to install | `string` | `"1.22.2"` | no |
 | <a name="input_node_location"></a> [node\_location](#input\_node\_location) | The zone in which the cluster's nodes should be located. If not specified, the cluster's nodes are located across zones in the region | `string` | `null` | no |
 | <a name="input_project"></a> [project](#input\_project) | The ID of the project in which the resource belongs | `string` | n/a | yes |
-| <a name="input_region"></a> [region](#input\_region) | The region to deploy the resources into | `string` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | The region in which the resource belongs | `string` | n/a | yes |
 
 ## Outputs
 

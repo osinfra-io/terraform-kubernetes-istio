@@ -29,7 +29,7 @@ repos:
       - id: terraform_docs
 
   - repo: https://github.com/bridgecrewio/checkov.git
-    rev: 3.2.186
+    rev: 3.2.213
     hooks:
       - id: checkov
         verbose: true

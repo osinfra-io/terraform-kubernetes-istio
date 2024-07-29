@@ -168,6 +168,6 @@ variable "project" {
 }
 
 variable "region" {
-  description = "The region to deploy the resources into"
+  description = "The region in which the resource belongs"
   type        = string
 }
