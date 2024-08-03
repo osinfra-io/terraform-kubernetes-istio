@@ -29,5 +29,12 @@ module "test" {
     }
   }
 
+  labels = {
+    cost-center = "x000"
+    env         = "mock"
+    team        = "mock"
+    repository  = "mock"
+  }
+
   project = var.project
 }

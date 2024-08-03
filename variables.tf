@@ -16,6 +16,12 @@ variable "istio_gateway_dns" {
   default = {}
 }
 
+variable "labels" {
+  description = "A map of key/value pairs to assign to the resources being created"
+  type        = map(string)
+  default     = {}
+}
+
 variable "project" {
   description = "The ID of the project in which the resource belongs"
   type        = string

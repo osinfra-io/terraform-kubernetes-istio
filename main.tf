@@ -4,6 +4,7 @@
 resource "google_compute_global_address" "istio_gateway_mci" {
   count = var.gke_fleet_host_project_id == "" ? 1 : 0
 
+  labels  = var.labels
   name    = "istio-gateway-mci"
   project = var.project
 }
