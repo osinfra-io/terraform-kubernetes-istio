@@ -11,7 +11,7 @@ repos:
       - id: check-symlinks
 
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.92.0
+    rev: v1.92.1
     hooks:
       - id: terraform_fmt
 
@@ -29,7 +29,7 @@ repos:
       - id: terraform_docs
 
   - repo: https://github.com/bridgecrewio/checkov.git
-    rev: 3.2.213
+    rev: 3.2.217
     hooks:
       - id: checkov
         verbose: true
