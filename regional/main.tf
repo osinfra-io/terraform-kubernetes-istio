@@ -5,6 +5,7 @@ resource "google_compute_global_address" "istio_gateway" {
   count = var.enable_istio_gateway ? 1 : 0
 
 
+  labels  = var.labels
   name    = "istio-gateway-${var.region}"
   project = var.project
 }
