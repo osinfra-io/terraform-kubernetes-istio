@@ -14,16 +14,7 @@ mock_provider "terraform" {
 
 variables {
   environment = "mock-enviroment"
-
-  istio_gateway_dns = {
-    "mock-environment.mock-subdomain.mock-domain" = {
-      managed_zone = "mock-environment-mock-subdomain-mock-domain"
-      project      = "mock-dns-project"
-    }
-  }
-
-  project = "mock-project"
-  region  = "mock-region"
+  project     = "mock-project"
 }
 
 run "primary" {
@@ -31,6 +22,14 @@ run "primary" {
 
   module {
     source = "./tests/fixtures/primary"
+  }
+  variables {
+    istio_gateway_dns = {
+      "mock-environment.mock-subdomain.mock-domain" = {
+        managed_zone = "mock-environment-mock-subdomain-mock-domain"
+        project      = "mock-dns-project"
+      }
+    }
   }
 }
 
@@ -41,8 +40,15 @@ run "primary_regional" {
     source = "./tests/fixtures/primary/regional"
   }
   variables {
+    istio_gateway_dns = {
+      "mock-region-a.mock-environment.mock-subdomain.mock-domain" = {
+        managed_zone = "mock-environment-mock-subdomain-mock-domain"
+        project      = "mock-dns-project"
+      }
+    }
     istio_remote_injection_path = "inject/cluster/mock-cluster/net/mock-network"
     istio_remote_injection_url  = "https://istiod.istio-system.clusterset.local:15017"
+    region                      = "mock-region-a"
   }
 }
 
@@ -51,6 +57,14 @@ run "remote" {
 
   module {
     source = "./tests/fixtures/remote"
+  }
+  variables {
+    istio_gateway_dns = {
+      "mock-environment.mock-subdomain.mock-domain" = {
+        managed_zone = "mock-environment-mock-subdomain-mock-domain"
+        project      = "mock-dns-project"
+      }
+    }
   }
 }
 
@@ -63,5 +77,12 @@ run "remote_regional" {
 
   variables {
     istio_external_istiod = true
+    istio_gateway_dns = {
+      "mock-region-b.mock-environment.mock-subdomain.mock-domain" = {
+        managed_zone = "mock-environment-mock-subdomain-mock-domain"
+        project      = "mock-dns-project"
+      }
+    }
+    region = "mock-region-b"
   }
 }
