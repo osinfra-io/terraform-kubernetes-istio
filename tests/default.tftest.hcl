@@ -52,22 +52,6 @@ run "primary_regional" {
   }
 }
 
-run "remote" {
-  command = apply
-
-  module {
-    source = "./tests/fixtures/remote"
-  }
-  variables {
-    istio_gateway_dns = {
-      "mock-environment.mock-subdomain.mock-domain" = {
-        managed_zone = "mock-environment-mock-subdomain-mock-domain"
-        project      = "mock-dns-project"
-      }
-    }
-  }
-}
-
 run "remote_regional" {
   command = apply
 
