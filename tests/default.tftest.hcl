@@ -52,6 +52,17 @@ run "primary_regional" {
   }
 }
 
+run "remote" {
+  command = apply
+
+  module {
+    source = "./tests/fixtures/remote"
+  }
+  variables {
+    gke_fleet_host_project_id = "mock-fleet-host-project"
+  }
+}
+
 run "remote_regional" {
   command = apply
 
@@ -60,13 +71,8 @@ run "remote_regional" {
   }
 
   variables {
-    istio_external_istiod = true
-    istio_gateway_dns = {
-      "mock-region-b.mock-environment.mock-subdomain.mock-domain" = {
-        managed_zone = "mock-environment-mock-subdomain-mock-domain"
-        project      = "mock-dns-project"
-      }
-    }
-    region = "mock-region-b"
+    gke_fleet_host_project_id = "mock-fleet-host-project"
+    istio_external_istiod     = true
+    region                    = "mock-region-b"
   }
 }

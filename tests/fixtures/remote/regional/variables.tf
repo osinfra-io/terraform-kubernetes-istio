@@ -5,16 +5,13 @@ variable "environment" {
   type = string
 }
 
+variable "gke_fleet_host_project_id" {
+  type = string
+}
+
 variable "istio_control_plane_clusters" {
   type    = string
   default = null
-}
-
-variable "istio_gateway_dns" {
-  type = map(object({
-    managed_zone = string
-    project      = string
-  }))
 }
 
 variable "istio_external_istiod" {
