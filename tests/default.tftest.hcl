@@ -13,7 +13,7 @@ mock_provider "terraform" {
 }
 
 variables {
-  environment = "mock-enviroment"
+  environment = "mock-environment"
   project     = "mock-project"
 }
 
