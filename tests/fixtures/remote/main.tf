@@ -12,6 +12,7 @@ terraform {
 module "test" {
   source = "../../../"
 
-  labels  = local.labels
-  project = var.project
+  gke_fleet_host_project_id = var.gke_fleet_host_project_id
+  labels                    = local.labels
+  project                   = var.project
 }

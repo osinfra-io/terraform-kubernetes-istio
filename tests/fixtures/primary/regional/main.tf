@@ -51,9 +51,6 @@ data "google_client_config" "current" {
 # Remote State Data Source
 # https://www.terraform.io/language/state/remote-state-data
 
-# This is the preferred way to get the remote state data from other terraform workspaces and how we recommend
-# you do it in your root module.
-
 data "terraform_remote_state" "regional" {
   backend   = "gcs"
   workspace = "mock-workspace"

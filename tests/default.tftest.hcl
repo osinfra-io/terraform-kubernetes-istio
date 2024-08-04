@@ -1,3 +1,9 @@
+# Terraform Tests
+# https://developer.hashicorp.com/terraform/language/tests
+
+# Terraform Mock Providers
+# https://developer.hashicorp.com/terraform/language/tests/mocking
+
 mock_provider "google" {}
 mock_provider "helm" {}
 mock_provider "kubernetes" {}
@@ -12,17 +18,13 @@ mock_provider "terraform" {
   }
 }
 
-variables {
-  environment = "mock-environment"
-  project     = "mock-project"
-}
-
 run "primary" {
   command = apply
 
   module {
     source = "./tests/fixtures/primary"
   }
+
   variables {
     istio_gateway_dns = {
       "mock-environment.mock-subdomain.mock-domain" = {
@@ -39,6 +41,7 @@ run "primary_regional" {
   module {
     source = "./tests/fixtures/primary/regional"
   }
+
   variables {
     istio_gateway_dns = {
       "mock-region-a.mock-environment.mock-subdomain.mock-domain" = {
@@ -46,6 +49,7 @@ run "primary_regional" {
         project      = "mock-dns-project"
       }
     }
+
     istio_remote_injection_path = "inject/cluster/mock-cluster/net/mock-network"
     istio_remote_injection_url  = "https://istiod.istio-system.clusterset.local:15017"
     region                      = "mock-region-a"
@@ -58,6 +62,7 @@ run "remote" {
   module {
     source = "./tests/fixtures/remote"
   }
+
   variables {
     gke_fleet_host_project_id = "mock-fleet-host-project"
   }
@@ -71,8 +76,12 @@ run "remote_regional" {
   }
 
   variables {
-    gke_fleet_host_project_id = "mock-fleet-host-project"
     istio_external_istiod     = true
     region                    = "mock-region-b"
   }
+}
+
+variables {
+  environment = "mock-environment"
+  project     = "mock-project"
 }

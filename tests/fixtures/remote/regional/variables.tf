@@ -5,10 +5,6 @@ variable "environment" {
   type = string
 }
 
-variable "gke_fleet_host_project_id" {
-  type = string
-}
-
 variable "istio_control_plane_clusters" {
   type    = string
   default = null
