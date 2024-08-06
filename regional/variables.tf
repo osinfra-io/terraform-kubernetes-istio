@@ -39,6 +39,12 @@ variable "istio_config_cluster" {
   default     = false
 }
 
+variable "istio_control_plane_clusters" {
+  description = "The GKE clusters that will be used as Istio control planes"
+  type        = string
+  default     = null
+}
+
 variable "istio_external_istiod" {
   description = "Boolean to configure a remote cluster data plane controlled by an external istiod"
   type        = bool

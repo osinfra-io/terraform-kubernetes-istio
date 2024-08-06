@@ -1,17 +1,41 @@
 # Input Variables
 # https://www.terraform.io/language/values/variables
 
-variable "dns_project_id" {
+variable "environment" {
+  type = string
+}
+
+variable "istio_control_plane_clusters" {
   type    = string
-  default = "test-default-tf75-sb"
+  default = null
+}
+
+variable "istio_gateway_dns" {
+  type = map(object({
+    managed_zone = string
+    project      = string
+  }))
+}
+
+variable "istio_external_istiod" {
+  type    = bool
+  default = false
+}
+
+variable "istio_remote_injection_path" {
+  type    = string
+  default = "/inject"
+}
+
+variable "istio_remote_injection_url" {
+  type    = string
+  default = ""
 }
 
 variable "project" {
-  type    = string
-  default = "test-gke-fleet-host-tf64-sb"
+  type = string
 }
 
 variable "region" {
-  type    = string
-  default = "us-east1"
+  type = string
 }

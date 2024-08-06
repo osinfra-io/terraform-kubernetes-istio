@@ -51,48 +51,28 @@ data "google_client_config" "current" {
 # Remote State Data Source
 # https://www.terraform.io/language/state/remote-state-data
 
-# This is the preferred way to get the remote state data from other terraform workspaces and how we recommend
-# you do it in your root module.
-
 data "terraform_remote_state" "regional" {
   backend   = "gcs"
-  workspace = "kitchen-terraform-gke-fleet-host-regional-gcp"
+  workspace = "mock-workspace"
 
   config = {
-    bucket = "plt-lz-testing-2c8b-sb"
+    bucket = "mock-bucket"
   }
 }
 
 module "test" {
+  source = "../../../../regional"
 
-  # This module will be consumed using the source address of the github repo and not the "../../../" used in this test.
-  # source = "git@github.com:osinfra-io/terraform-google-kubernetes-engine//regional/istio?ref=v0.0.0"
-
-  source                = "../../../../regional"
-  artifact_registry     = "us-docker.pkg.dev/test-default-tf75-sb/test-virtual"
-  cluster_prefix        = "fleet-host"
-  enable_istio_gateway  = true
-  istio_external_istiod = true
-
-  istio_gateway_dns = {
-    "gateway-us-east1-b.test.gcp.osinfra.io" = {
-      managed_zone = "test-gcp-osinfra-io"
-      project      = var.dns_project_id
-    }
-
-    "stream-team-us-east1-b.test.gcp.osinfra.io" = {
-      managed_zone = "test-gcp-osinfra-io"
-      project      = var.dns_project_id
-    }
-  }
-
-  labels = {
-    cost-center = "x000"
-    env         = "mock"
-    team        = "mock"
-    repository  = "mock"
-  }
-
-  project = var.project
-  region  = var.region
+  artifact_registry            = "mock-docker.pkg.dev/mock-project/mock-virtual"
+  cluster_prefix               = "mock"
+  enable_istio_gateway         = true
+  environment                  = var.environment
+  istio_external_istiod        = var.istio_external_istiod
+  istio_control_plane_clusters = var.istio_control_plane_clusters
+  istio_gateway_dns            = var.istio_gateway_dns
+  istio_remote_injection_path  = var.istio_remote_injection_path
+  istio_remote_injection_url   = var.istio_remote_injection_url
+  labels                       = local.labels
+  project                      = var.project
+  region                       = var.region
 }

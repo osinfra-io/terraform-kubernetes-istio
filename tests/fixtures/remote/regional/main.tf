@@ -56,24 +56,24 @@ data "google_client_config" "current" {
 
 data "terraform_remote_state" "regional" {
   backend   = "gcs"
-  workspace = "kitchen-terraform-gke-fleet-member-regional-gcp"
+  workspace = "mock-workspace"
 
   config = {
-    bucket = "plt-lz-testing-2c8b-sb"
+    bucket = "mock-bucket"
   }
 }
 
 module "test" {
+  source = "../../../../regional"
 
-  # This module will be consumed using the source address of the github repo and not the "../../../" used in this test.
-  # source = "git@github.com:osinfra-io/terraform-google-kubernetes-engine//regional/istio?ref=v0.0.0"
-
-  source                     = "../../../../regional"
-  artifact_registry          = "us-docker.pkg.dev/test-default-tf75-sb/test-virtual"
-  cluster_prefix             = "fleet-member"
-  istio_remote_injection_url = "https://istiod.istio-system.svc.clusterset.local:15017/inject/cluster/fleet-host-us-east1-b/net/standard-shared"
-
-
-  project = var.project
-  region  = var.region
+  artifact_registry            = "mock-docker.pkg.dev/mock-project/mock-virtual"
+  cluster_prefix               = "mock"
+  environment                  = var.environment
+  istio_external_istiod        = var.istio_external_istiod
+  istio_control_plane_clusters = var.istio_control_plane_clusters
+  istio_remote_injection_path  = var.istio_remote_injection_path
+  istio_remote_injection_url   = var.istio_remote_injection_url
+  labels                       = local.labels
+  project                      = var.project
+  region                       = var.region
 }

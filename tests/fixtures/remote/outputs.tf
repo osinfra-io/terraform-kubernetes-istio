@@ -1,10 +1,10 @@
 # Output Values
 # https://www.terraform.io/language/values/outputs
 
-output "gke_fleet_host_project_id" {
-  value = var.gke_fleet_host_project_id
+output "istio_gateway_mci_global_address" {
+  value = module.test.istio_gateway_mci_global_address
 }
 
-output "project_id" {
-  value = var.project
+output "istio_gateway_mci_ssl_certificate_name" {
+  value = module.test.istio_gateway_mci_ssl_certificate_name
 }

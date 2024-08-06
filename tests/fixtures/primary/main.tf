@@ -10,31 +10,9 @@ terraform {
 }
 
 module "test" {
-
-  # This module will be consumed using the source address of the github repo and not the "../../../" used in this test.
-  # source = "github.com/osinfra-io/terraform-google-kubernetes//global?ref=v0.0.0"
-
   source = "../../../"
 
-
-  istio_gateway_dns = {
-    "gateway.test.gcp.osinfra.io" = {
-      managed_zone = "test-gcp-osinfra-io"
-      project      = var.dns_project_id
-    }
-
-    "stream-team.test.gcp.osinfra.io" = {
-      managed_zone = "test-gcp-osinfra-io"
-      project      = var.dns_project_id
-    }
-  }
-
-  labels = {
-    cost-center = "x000"
-    env         = "mock"
-    team        = "mock"
-    repository  = "mock"
-  }
-
-  project = var.project
+  istio_gateway_dns = var.istio_gateway_dns
+  labels            = local.labels
+  project           = var.project
 }

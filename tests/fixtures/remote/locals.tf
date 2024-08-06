@@ -1,5 +1,5 @@
 # Local Values
-# https://www.terraform.io/language/values/locals
+# https://www.terraform.io/docs/language/values/locals.html
 
 locals {
   labels = {
@@ -9,7 +9,4 @@ locals {
     platform    = "mock-platform"
     team        = "mock-team"
   }
-
-  regional = data.terraform_remote_state.regional.outputs
-
 }
