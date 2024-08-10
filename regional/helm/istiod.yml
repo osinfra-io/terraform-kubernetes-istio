@@ -9,6 +9,7 @@ meshConfig:
   accessLogFile: /dev/stdout
   defaultConfig:
     proxyMetadata:
+      DD_REMOTE_CONFIGURATION_ENABLED: "false"
       ISTIO_META_DNS_CAPTURE: "true"
       ISTIO_META_DNS_AUTO_ALLOCATE: "true"
 
