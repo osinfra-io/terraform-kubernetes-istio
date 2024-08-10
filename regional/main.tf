@@ -205,6 +205,16 @@ resource "helm_release" "gateway" {
     value = local.istio_gateway_datadog_apm_env
   }
 
+  set {
+    name  = "podAnnotations.proxy\\.istio\\.io/config"
+    value = <<EOF
+    proxyMetadata:
+      DD_ENV: ${var.environment}
+      DD_SERVICE: istio-gateway
+      DD_VERSION: ${var.istio_version}
+    EOF
+  }
+
   values = [
     file("${path.module}/helm/gateway.yml")
   ]
