@@ -16,7 +16,7 @@ podAnnotations:
     ]
 
   ad.datadoghq.com/istio-proxy.logs: '[{"source":"envoy"}]'
-  proxy.istio.io/config: '{"tracing":{"datadog"}}'
+  # proxy.istio.io/config: '{"tracing":{"datadog"}}'
 
 podDisruptionBudget:
   maxUnavailable: 1
