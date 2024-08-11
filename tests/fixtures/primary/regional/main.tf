@@ -73,6 +73,13 @@ module "test" {
   istio_remote_injection_path  = var.istio_remote_injection_path
   istio_remote_injection_url   = var.istio_remote_injection_url
   labels                       = local.labels
-  project                      = var.project
-  region                       = var.region
+
+  multi_cluster_service_clusters = [
+    {
+      "link" = "mock-region/mock-cluster"
+    }
+  ]
+
+  project = var.project
+  region  = var.region
 }

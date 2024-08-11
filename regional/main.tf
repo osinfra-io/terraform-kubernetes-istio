@@ -205,6 +205,16 @@ resource "helm_release" "gateway" {
     value = local.istio_gateway_datadog_apm_env
   }
 
+  set {
+    name  = "podAnnotations.proxy\\.istio\\.io/config"
+    value = <<EOF
+    proxyMetadata:
+      DD_ENV: ${var.environment}
+      DD_SERVICE: istio-gateway
+      DD_VERSION: ${var.istio_version}
+    EOF
+  }
+
   values = [
     file("${path.module}/helm/gateway.yml")
   ]
@@ -317,6 +327,91 @@ resource "kubernetes_manifest" "istio_gateway_managed_certificate" {
     }
     spec = {
       domains = local.istio_gateway_domains
+    }
+  }
+}
+
+resource "kubernetes_manifest" "istio_gateway_mcs" {
+  count = var.enable_istio_gateway ? 1 : 0
+
+  manifest = {
+    apiVersion = "networking.gke.io/v1"
+    kind       = "MultiClusterService"
+
+    metadata = {
+      name      = "istio-gateway-mcs"
+      namespace = "istio-ingress"
+      annotations = {
+        "cloud.google.com/backend-config" = jsonencode({ "default" = "${kubernetes_manifest.istio_gateway_backendconfig[0].manifest.metadata.name}" })
+        "cloud.google.com/neg"            = jsonencode({ "ingress" = true })
+        "networking.gke.io/app-protocols" = jsonencode({ "https" = "HTTPS" })
+      }
+    }
+
+    spec = {
+      template = {
+        spec = {
+          selector = {
+            app   = "gateway"
+            istio = "gateway"
+          }
+
+          ports = [
+            {
+              name       = "https"
+              port       = 443
+              protocol   = "TCP"
+              targetPort = 443
+            }
+          ]
+        }
+      }
+
+      clusters = var.multi_cluster_service_clusters
+    }
+  }
+}
+
+resource "kubernetes_manifest" "istio_gateway_mci" {
+  count = var.enable_istio_gateway ? 1 : 0
+
+  manifest = {
+    apiVersion = "networking.gke.io/v1"
+    kind       = "MultiClusterIngress"
+
+    metadata = {
+      name      = "istio-gateway-mci"
+      namespace = "istio-ingress"
+      annotations = {
+        "networking.gke.io/frontend-config"  = kubernetes_manifest.istio_gateway_frontendconfig[0].manifest.metadata.name
+        "networking.gke.io/pre-shared-certs" = "istio-gateway-mci"
+        "networking.gke.io/static-ip"        = var.istio_gateway_mci_global_address
+      }
+    }
+
+    spec = {
+      template = {
+        spec = {
+          backend = {
+            serviceName = kubernetes_manifest.istio_gateway_mcs[0].manifest.metadata.name
+            servicePort = kubernetes_manifest.istio_gateway_mcs[0].manifest.spec.template.spec.ports[0].port
+          }
+          rules = [
+            {
+              http = {
+                paths = [
+                  {
+                    backend = {
+                      serviceName = kubernetes_manifest.istio_gateway_mcs[0].manifest.metadata.name
+                      servicePort = kubernetes_manifest.istio_gateway_mcs[0].manifest.spec.template.spec.ports[0].port
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
     }
   }
 }

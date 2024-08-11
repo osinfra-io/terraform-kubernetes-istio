@@ -72,6 +72,12 @@ variable "istio_gateway_dns" {
   default = {}
 }
 
+variable "istio_gateway_mci_global_address" {
+  description = "The IP address for the Istio Gateway multi-cluster ingress"
+  type        = string
+  default     = ""
+}
+
 variable "istio_gateway_memory_request" {
   description = "The memory request for the Istio gateway"
   type        = string
@@ -166,6 +172,14 @@ variable "labels" {
   description = "A map of key/value pairs to assign to the resources being created"
   type        = map(string)
   default     = {}
+}
+
+variable "multi_cluster_service_clusters" {
+  description = "List of clusters to be included in the MultiClusterService"
+  type = list(object({
+    link = string
+  }))
+  default = []
 }
 
 variable "node_location" {
