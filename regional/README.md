@@ -45,7 +45,7 @@ No modules.
 | <a name="input_artifact_registry"></a> [artifact\_registry](#input\_artifact\_registry) | The registry to pull the images from | `string` | `"us-docker.pkg.dev/plt-lz-services-tf79-prod/platform-docker-virtual"` | no |
 | <a name="input_cluster_prefix"></a> [cluster\_prefix](#input\_cluster\_prefix) | Prefix for your cluster name | `string` | n/a | yes |
 | <a name="input_enable_istio_gateway"></a> [enable\_istio\_gateway](#input\_enable\_istio\_gateway) | Enable the Istio gateway, used for ingress traffic into the mesh | `bool` | `false` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | The environment suffix for example: `sb` (Sandbox), `nonprod` (Non-Production), `prod` (Production) | `string` | `"sb"` | no |
+| <a name="input_environment"></a> [environment](#input\_environment) | The environment must be one of `sandbox`, `non-production`, `production` | `string` | `"sandbox"` | no |
 | <a name="input_gateway_autoscale_min"></a> [gateway\_autoscale\_min](#input\_gateway\_autoscale\_min) | The minimum number of gateway replicas to run | `number` | `1` | no |
 | <a name="input_istio_chart_repository"></a> [istio\_chart\_repository](#input\_istio\_chart\_repository) | The repository to pull the Istio Helm chart from | `string` | `"https://istio-release.storage.googleapis.com/charts"` | no |
 | <a name="input_istio_config_cluster"></a> [istio\_config\_cluster](#input\_istio\_config\_cluster) | Boolean to configure a remote cluster as the config cluster for an external istiod | `bool` | `false` | no |
@@ -69,7 +69,7 @@ No modules.
 | <a name="input_istio_proxy_memory_request"></a> [istio\_proxy\_memory\_request](#input\_istio\_proxy\_memory\_request) | The memory request for the Istio proxy | `string` | `"128Mi"` | no |
 | <a name="input_istio_remote_injection_path"></a> [istio\_remote\_injection\_path](#input\_istio\_remote\_injection\_path) | The sidecar injector mutating webhook configuration path value for the clientConfig.service field | `string` | `"/inject"` | no |
 | <a name="input_istio_remote_injection_url"></a> [istio\_remote\_injection\_url](#input\_istio\_remote\_injection\_url) | The sidecar injector mutating webhook configuration clientConfig.url value | `string` | `""` | no |
-| <a name="input_istio_version"></a> [istio\_version](#input\_istio\_version) | The version of istio to install | `string` | `"1.22.2"` | no |
+| <a name="input_istio_version"></a> [istio\_version](#input\_istio\_version) | The version of istio to install | `string` | `"1.23.0"` | no |
 | <a name="input_labels"></a> [labels](#input\_labels) | A map of key/value pairs to assign to the resources being created | `map(string)` | `{}` | no |
 | <a name="input_multi_cluster_service_clusters"></a> [multi\_cluster\_service\_clusters](#input\_multi\_cluster\_service\_clusters) | List of clusters to be included in the MultiClusterService | <pre>list(object({<br>    link = string<br>  }))</pre> | `[]` | no |
 | <a name="input_node_location"></a> [node\_location](#input\_node\_location) | The zone in which the cluster's nodes should be located. If not specified, the cluster's nodes are located across zones in the region | `string` | `null` | no |

@@ -16,9 +16,14 @@ variable "enable_istio_gateway" {
 }
 
 variable "environment" {
-  description = "The environment suffix for example: `sb` (Sandbox), `nonprod` (Non-Production), `prod` (Production)"
+  description = "The environment must be one of `sandbox`, `non-production`, `production`"
   type        = string
-  default     = "sb"
+  default     = "sandbox"
+
+  validation {
+    condition     = contains(["mock-environment", "sandbox", "non-production", "production"], var.environment)
+    error_message = "The environment must be one of `mock-environment` for tests or `sandbox`, `non-production`, or `production`."
+  }
 }
 
 variable "gateway_autoscale_min" {
@@ -165,7 +170,7 @@ variable "istio_remote_injection_url" {
 variable "istio_version" {
   description = "The version of istio to install"
   type        = string
-  default     = "1.22.2"
+  default     = "1.23.0"
 }
 
 variable "labels" {

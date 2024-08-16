@@ -15,12 +15,6 @@ variable "common_istio_virtual_services" {
   }))
 }
 
-variable "environment" {
-  description = "The environment suffix for example: `sb` (Sandbox), `nonprod` (Non-Production), `prod` (Production)"
-  type        = string
-  default     = "sb"
-}
-
 variable "gke_info_istio_virtual_services" {
   description = "The map of Istio VirtualServices to create for GKE Info"
   type = map(object({
