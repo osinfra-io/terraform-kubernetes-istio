@@ -40,8 +40,8 @@ resource "helm_release" "base" {
   version = var.istio_version
 }
 
-resource "helm_release" "istiod" {
-  chart      = "istiod"
+resource "helm_release" "istiod_remote" {
+  chart      = "istiod-remote"
   name       = "istiod"
   namespace  = kubernetes_namespace_v1.istio_system.metadata.0.name
   repository = var.istio_chart_repository
@@ -222,7 +222,7 @@ resource "helm_release" "gateway" {
   version = var.istio_version
 
   depends_on = [
-    helm_release.istiod
+    helm_release.istiod_remote
   ]
 }
 
@@ -430,7 +430,7 @@ resource "kubernetes_manifest" "istio_service_exports" {
   }
 
   depends_on = [
-    helm_release.istiod
+    helm_release.istiod_remote
   ]
 }
 
