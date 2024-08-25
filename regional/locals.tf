@@ -11,7 +11,6 @@ locals {
   EOF
 
   istio_gateway_proxy_config = <<EOF
-    {
     \"tracing\":{\"datadog\":{\"address\":\"$(HOST_IP):8126\"}}\,
     \"proxyMetadata\":{\"DD_ENV\":\"${var.environment}\"\,
     \"DD_SERVICE\":\"istio-gateway\"\,
