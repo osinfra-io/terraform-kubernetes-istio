@@ -187,12 +187,13 @@ resource "helm_release" "gateway" {
 
   set {
     name  = "podAnnotations.proxy\\.istio\\.io/config"
-    value = <<EOF
-    proxyMetadata:
-      DD_ENV: ${var.environment}
-      DD_SERVICE: istio-gateway
-      DD_VERSION: ${var.istio_version}
-    EOF
+    value = local.istio_gateway_proxy_config
+    # <<EOF
+    # proxyMetadata:
+    #   DD_ENV: ${var.environment}
+    #   DD_SERVICE: istio-gateway
+    #   DD_VERSION: ${var.istio_version}
+    # EOF
   }
 
   values = [

@@ -1,6 +1,6 @@
 global:
   proxy:
-    tracer: datadog
+    tracer: none
 
   meshID: default
   network: standard-shared
