@@ -1,7 +1,4 @@
 global:
-  proxy:
-    tracer: none
-
   meshID: default
   network: standard-shared
 
@@ -48,3 +45,5 @@ pilot:
       labelSelector:
         matchLabels:
           app: istiod
+
+  traceSampling: 100.0
