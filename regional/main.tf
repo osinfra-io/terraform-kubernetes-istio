@@ -40,7 +40,7 @@ resource "helm_release" "base" {
   version = var.istio_version
 }
 
-resource "helm_release" "istiod_remote" {
+resource "helm_release" "istiod" {
   chart      = "istiod"
   name       = "istiod"
   namespace  = kubernetes_namespace_v1.istio_system.metadata.0.name
@@ -52,33 +52,13 @@ resource "helm_release" "istiod_remote" {
   }
 
   set {
-    name  = "global.configCluster"
-    value = var.istio_config_cluster
-  }
-
-  set {
     name  = "global.multiCluster.clusterName"
     value = local.multi_cluster_name
   }
 
   set {
-    name  = "istioRemote.injectionURL"
-    value = var.istio_remote_injection_url
-  }
-
-  set {
-    name  = "istioRemote.injectionPath"
-    value = var.istio_remote_injection_path
-  }
-
-  set {
     name  = "pilot.autoscaleMin"
     value = var.istio_pilot_autoscale_min
-  }
-
-  set {
-    name  = "pilot.env.EXTERNAL_ISTIOD"
-    value = var.istio_external_istiod
   }
 
   set {
@@ -222,7 +202,7 @@ resource "helm_release" "gateway" {
   version = var.istio_version
 
   depends_on = [
-    helm_release.istiod_remote
+    helm_release.istiod
   ]
 }
 
@@ -414,24 +394,6 @@ resource "kubernetes_manifest" "istio_gateway_mci" {
       }
     }
   }
-}
-
-resource "kubernetes_manifest" "istio_service_exports" {
-  count = var.istio_external_istiod ? 1 : 0
-
-  manifest = {
-    "apiVersion" = "net.gke.io/v1"
-    "kind"       = "ServiceExport"
-
-    "metadata" = {
-      "name"      = "istiod"
-      "namespace" = kubernetes_namespace_v1.istio_system.metadata.0.name
-    }
-  }
-
-  depends_on = [
-    helm_release.istiod_remote
-  ]
 }
 
 # Kubernetes Namespace Resource

@@ -69,10 +69,7 @@ module "test" {
   artifact_registry            = "mock-docker.pkg.dev/mock-project/mock-virtual"
   cluster_prefix               = "mock"
   environment                  = var.environment
-  istio_external_istiod        = var.istio_external_istiod
   istio_control_plane_clusters = var.istio_control_plane_clusters
-  istio_remote_injection_path  = var.istio_remote_injection_path
-  istio_remote_injection_url   = var.istio_remote_injection_url
   labels                       = local.labels
   project                      = var.project
   region                       = var.region

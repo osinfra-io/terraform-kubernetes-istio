@@ -67,11 +67,8 @@ module "test" {
   cluster_prefix               = "mock"
   enable_istio_gateway         = true
   environment                  = var.environment
-  istio_external_istiod        = var.istio_external_istiod
   istio_control_plane_clusters = var.istio_control_plane_clusters
   istio_gateway_dns            = var.istio_gateway_dns
-  istio_remote_injection_path  = var.istio_remote_injection_path
-  istio_remote_injection_url   = var.istio_remote_injection_url
   labels                       = local.labels
 
   multi_cluster_service_clusters = [
