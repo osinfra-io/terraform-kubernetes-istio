@@ -38,12 +38,6 @@ variable "istio_chart_repository" {
   default     = "https://istio-release.storage.googleapis.com/charts"
 }
 
-variable "istio_control_plane_clusters" {
-  description = "The GKE clusters that will be used as Istio control planes"
-  type        = string
-  default     = null
-}
-
 variable "istio_gateway_cpu_request" {
   description = "The CPU request for the Istio gateway"
   type        = string

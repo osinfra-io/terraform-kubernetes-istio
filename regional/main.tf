@@ -413,10 +413,6 @@ resource "kubernetes_namespace_v1" "istio_ingress" {
 
 resource "kubernetes_namespace_v1" "istio_system" {
   metadata {
-    annotations = var.istio_control_plane_clusters != null ? {
-      "topology.istio.io/controlPlaneClusters" = var.istio_control_plane_clusters
-    } : {}
-
     name = "istio-system"
   }
 }

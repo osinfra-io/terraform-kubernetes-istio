@@ -63,13 +63,12 @@ data "terraform_remote_state" "regional" {
 module "test" {
   source = "../../../../regional"
 
-  artifact_registry            = "mock-docker.pkg.dev/mock-project/mock-virtual"
-  cluster_prefix               = "mock"
-  enable_istio_gateway         = true
-  environment                  = var.environment
-  istio_control_plane_clusters = var.istio_control_plane_clusters
-  istio_gateway_dns            = var.istio_gateway_dns
-  labels                       = local.labels
+  artifact_registry    = "mock-docker.pkg.dev/mock-project/mock-virtual"
+  cluster_prefix       = "mock"
+  enable_istio_gateway = true
+  environment          = var.environment
+  istio_gateway_dns    = var.istio_gateway_dns
+  labels               = local.labels
 
   multi_cluster_service_clusters = [
     {

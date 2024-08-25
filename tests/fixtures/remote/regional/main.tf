@@ -66,11 +66,10 @@ data "terraform_remote_state" "regional" {
 module "test" {
   source = "../../../../regional"
 
-  artifact_registry            = "mock-docker.pkg.dev/mock-project/mock-virtual"
-  cluster_prefix               = "mock"
-  environment                  = var.environment
-  istio_control_plane_clusters = var.istio_control_plane_clusters
-  labels                       = local.labels
-  project                      = var.project
-  region                       = var.region
+  artifact_registry = "mock-docker.pkg.dev/mock-project/mock-virtual"
+  cluster_prefix    = "mock"
+  environment       = var.environment
+  labels            = local.labels
+  project           = var.project
+  region            = var.region
 }
