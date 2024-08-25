@@ -15,8 +15,7 @@ locals {
     \"tracing\":{\"datadog\":{\"address\":\"$(HOST_IP):8126\"}}\,
     \"proxyMetadata\":{\"DD_ENV\":\"${var.environment}\"\,
     \"DD_SERVICE\":\"istio-gateway\"\,
-    \"DD_VERSION\":\"${var.istio_version}\"
-    }
+    \"DD_VERSION\":\"${var.istio_version}\"\,
   EOF
 
   istio_gateway_domains = keys(var.istio_gateway_dns)
