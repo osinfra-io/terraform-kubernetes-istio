@@ -188,7 +188,6 @@ resource "helm_release" "gateway" {
   set {
     name  = "podAnnotations.proxy\\.istio\\.io/config"
     value = <<EOF
-    ${local.istio_gateway_datadog_tracing}
     proxyMetadata:
       DD_ENV: ${var.environment}
       DD_SERVICE: istio-gateway
