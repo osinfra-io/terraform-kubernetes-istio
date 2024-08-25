@@ -12,7 +12,6 @@ meshConfig:
       DD_REMOTE_CONFIGURATION_ENABLED: "false"
       ISTIO_META_DNS_CAPTURE: "true"
       ISTIO_META_DNS_AUTO_ALLOCATE: "true"
-      PROXY_CONFIG: '{"tracing":{"datadog"}:{"address":"$(HOST_IP):8126"}}'
 
 pilot:
   autoscaleEnabled: true
