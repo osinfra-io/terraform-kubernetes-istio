@@ -41,7 +41,7 @@ resource "helm_release" "base" {
 }
 
 resource "helm_release" "istiod_remote" {
-  chart      = "istiod-remote"
+  chart      = "istiod"
   name       = "istiod"
   namespace  = kubernetes_namespace_v1.istio_system.metadata.0.name
   repository = var.istio_chart_repository
