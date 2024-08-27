@@ -73,7 +73,8 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 5.40.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | 6.0.1 |
+| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | 6.0.1 |
 
 ### Modules
 
@@ -83,6 +84,7 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [google-beta_google_compute_security_policy.pre_configured_waf](https://registry.terraform.io/providers/hashicorp/google-beta/latest/docs/resources/google_compute_security_policy) | resource |
 | [google_compute_global_address.istio_gateway_mci](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_address) | resource |
 | [google_compute_managed_ssl_certificate.istio_gateway_mci](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_managed_ssl_certificate) | resource |
 | [google_compute_ssl_policy.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_ssl_policy) | resource |

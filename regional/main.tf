@@ -276,6 +276,7 @@ resource "kubernetes_manifest" "istio_gateway_backendconfig" {
         unhealthyThreshold = "2"
       }
     }
+    security_policy = "predefined-waf-rules"
   }
 }
 
