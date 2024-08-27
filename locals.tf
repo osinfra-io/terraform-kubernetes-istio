@@ -26,7 +26,7 @@ locals {
       action      = "deny(403)"
       description = "OWASP: Cross-site scripting"
       preview     = false
-      priority    = 10000
+      priority    = 10010
       sensitivity = 1
     },
     {
@@ -34,7 +34,7 @@ locals {
       action      = "deny(403)"
       description = "OWASP: iOWASP: Local file inclusion"
       preview     = false
-      priority    = 10000
+      priority    = 10020
       sensitivity = 1
     },
     {
@@ -42,7 +42,7 @@ locals {
       action      = "deny(403)"
       description = "OWASP: Remote file inclusion"
       preview     = false
-      priority    = 10000
+      priority    = 10030
       sensitivity = 1
     },
     {
@@ -50,7 +50,7 @@ locals {
       action      = "deny(403)"
       description = "OWASP: Remote code execution"
       preview     = false
-      priority    = 10000
+      priority    = 10040
       sensitivity = 1
     },
     {
@@ -58,7 +58,7 @@ locals {
       action      = "deny(403)"
       description = "OWASP: Method enforcement"
       preview     = false
-      priority    = 10000
+      priority    = 10050
       sensitivity = 1
     },
     {
@@ -66,7 +66,7 @@ locals {
       action      = "deny(403)"
       description = "OWASP: Scanner detection"
       preview     = false
-      priority    = 10000
+      priority    = 10060
       sensitivity = 1
     },
     {
@@ -74,7 +74,7 @@ locals {
       action      = "deny(403)"
       description = "OWASP: Protocol attack"
       preview     = false
-      priority    = 10000
+      priority    = 10070
       sensitivity = 1
     },
     {
@@ -82,7 +82,7 @@ locals {
       action      = "deny(403)"
       description = "OWASP: PHP injection attack"
       preview     = false
-      priority    = 10000
+      priority    = 10080
       sensitivity = 1
     },
     {
@@ -90,7 +90,7 @@ locals {
       action      = "deny(403)"
       description = "OWASP: Session fixation"
       preview     = false
-      priority    = 10000
+      priority    = 10090
       sensitivity = 1
     },
     {
@@ -98,7 +98,7 @@ locals {
       action      = "deny(403)"
       description = "OWASP: Java attack"
       preview     = false
-      priority    = 10000
+      priority    = 10100
       sensitivity = 1
     },
     {
@@ -106,7 +106,7 @@ locals {
       action      = "deny(403)"
       description = "OWASP: NodeJS attack"
       preview     = false
-      priority    = 10000
+      priority    = 10110
       sensitivity = 1
     },
 
@@ -121,7 +121,7 @@ locals {
       action      = "deny(403)"
       description = "Log4j vulnerability"
       preview     = false
-      priority    = 10000
+      priority    = 10120
       sensitivity = 1
     },
     {
@@ -129,7 +129,7 @@ locals {
       action      = "deny(403)"
       description = "JSON-based SQL injection bypass vulnerability"
       preview     = false
-      priority    = 10000
+      priority    = 10130
       sensitivity = 1
     }
   ]
