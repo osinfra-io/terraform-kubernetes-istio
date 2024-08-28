@@ -5,6 +5,7 @@
 # https://developer.hashicorp.com/terraform/language/tests/mocking
 
 mock_provider "google" {}
+mock_provider "google-beta" {}
 mock_provider "helm" {}
 mock_provider "kubernetes" {}
 
