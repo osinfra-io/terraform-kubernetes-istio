@@ -32,7 +32,7 @@ locals {
     {
       name        = "lfi-v33-stable"
       action      = "deny(403)"
-      description = "OWASP: iOWASP: Local file inclusion"
+      description = "OWASP: Local file inclusion"
       preview     = false
       priority    = 10020
       sensitivity = 1
