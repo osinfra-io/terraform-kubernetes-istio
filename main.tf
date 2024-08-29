@@ -29,7 +29,7 @@ resource "google_compute_managed_ssl_certificate" "istio_gateway_mci" {
 # Google Compute Security Policy Resource
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_security_policy
 
-resource "google_compute_security_policy" "pre_configured_waf" {
+resource "google_compute_security_policy" "preconfigured_waf" {
   provider = google-beta # Required for the adaptive_protection_config auto_deploy_config block
 
   # Ensure Cloud Armor prevents message lookup in Log4j2
