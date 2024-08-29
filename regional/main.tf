@@ -276,7 +276,7 @@ resource "kubernetes_manifest" "istio_gateway_backendconfig" {
         unhealthyThreshold = "2"
       }
       securityPolicy = {
-        name = "preconfigured-waf-policy"
+        name = "istio-gateway"
       }
     }
   }
@@ -293,7 +293,7 @@ resource "kubernetes_manifest" "istio_gateway_frontendconfig" {
       namespace = kubernetes_namespace_v1.istio_ingress[0].metadata.0.name
     }
     spec = {
-      sslPolicy = "default"
+      sslPolicy = "istio-gateway"
       redirectToHttps = {
         enabled = true
       }

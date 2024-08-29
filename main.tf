@@ -29,7 +29,7 @@ resource "google_compute_managed_ssl_certificate" "istio_gateway_mci" {
 # Google Compute Security Policy Resource
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_security_policy
 
-resource "google_compute_security_policy" "preconfigured_waf" {
+resource "google_compute_security_policy" "istio_gateway" {
   provider = google-beta # Required for the adaptive_protection_config auto_deploy_config block
 
   # Ensure Cloud Armor prevents message lookup in Log4j2
@@ -66,7 +66,7 @@ resource "google_compute_security_policy" "preconfigured_waf" {
     log_level = "VERBOSE"
   }
 
-  name    = "preconfigured-waf-policy"
+  name    = "istio-gateway"
   project = var.project
 
   rule {
@@ -133,10 +133,10 @@ resource "google_compute_security_policy" "preconfigured_waf" {
 # Google Compute SSL Policy Resource
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_ssl_policy
 
-resource "google_compute_ssl_policy" "default" {
+resource "google_compute_ssl_policy" "istio_gateway" {
   count = var.gke_fleet_host_project_id == "" ? 1 : 0
 
-  name            = "default"
+  name            = "istio-gateway"
   min_tls_version = "TLS_1_2"
   profile         = "MODERN"
   project         = var.project
