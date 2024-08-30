@@ -3,37 +3,37 @@
 
 resource "kubernetes_manifest" "istio_cluster_services_destination_rule" {
   manifest = {
-    "apiVersion" = "networking.istio.io/v1beta1"
-    "kind"       = "DestinationRule"
+    apiVersion = "networking.istio.io/v1beta1"
+    kind       = "DestinationRule"
 
-    "metadata" = {
-      "name"      = "cluster-services"
-      "namespace" = "istio-system"
+    metadata = {
+      name      = "cluster-services"
+      namespace = "istio-system"
     }
 
-    "spec" = {
-      "host" = "*.svc.cluster.local"
+    spec = {
+      host = "*.svc.cluster.local"
 
-      "trafficPolicy" = {
-        "connectionPool" = {
+      trafficPolicy = {
+        connectionPool = {
 
           # ConnectionPoolSettings
           # https://istio.io/latest/docs/reference/config/networking/destination-rule/#ConnectionPoolSettings-HTTPSettings
 
-          "http" = {
-            "maxRequestsPerConnection" = 0 # This is the default value
+          http = {
+            maxRequestsPerConnection = 0 # This is the default value
           }
         }
 
-        "loadBalancer" = {
-          "simple" = "LEAST_REQUEST"
-          "localityLbSetting" = {
-            "enabled" = true
+        loadBalancer = {
+          simple = "LEAST_REQUEST"
+          localityLbSetting = {
+            enabled = true
 
-            "failover" = [
+            failover = [
               {
-                "from" = var.istio_failover_from_region
-                "to"   = var.istio_failover_to_region
+                from = var.istio_failover_from_region
+                to   = var.istio_failover_to_region
               }
             ]
           }
@@ -42,14 +42,14 @@ resource "kubernetes_manifest" "istio_cluster_services_destination_rule" {
         # OutlierDetection
         # https://istio.io/latest/docs/reference/config/networking/destination-rule/#OutlierDetection
 
-        "outlierDetection" = {
+        outlierDetection = {
 
           # These are the default values
 
-          "consecutive5xxErrors" = 5
-          "interval"             = "10s"
-          "baseEjectionTime"     = "30s"
-          "maxEjectionPercent"   = 10
+          consecutive5xxErrors = 5
+          interval             = "10s"
+          baseEjectionTime     = "30s"
+          maxEjectionPercent   = 10
         }
       }
     }
@@ -58,20 +58,20 @@ resource "kubernetes_manifest" "istio_cluster_services_destination_rule" {
 
 resource "kubernetes_manifest" "istio_kubernetes_default_destination_rule" {
   manifest = {
-    "apiVersion" = "networking.istio.io/v1beta1"
-    "kind"       = "DestinationRule"
+    apiVersion = "networking.istio.io/v1beta1"
+    kind       = "DestinationRule"
 
-    "metadata" = {
-      "name"      = "kubernetes-default"
-      "namespace" = "istio-system"
+    metadata = {
+      name      = "kubernetes-default"
+      namespace = "istio-system"
     }
 
-    "spec" = {
-      "host" = "kubernetes.default.svc"
+    spec = {
+      host = "kubernetes.default.svc"
 
-      "trafficPolicy" = {
-        "tls" = {
-          "mode" = "DISABLE"
+      trafficPolicy = {
+        tls = {
+          mode = "DISABLE"
         }
       }
     }
@@ -80,32 +80,32 @@ resource "kubernetes_manifest" "istio_kubernetes_default_destination_rule" {
 
 resource "kubernetes_manifest" "istio_gateway" {
   manifest = {
-    "apiVersion" = "networking.istio.io/v1beta1"
-    "kind"       = "Gateway"
+    apiVersion = "networking.istio.io/v1beta1"
+    kind       = "Gateway"
 
-    "metadata" = {
-      "name"      = "global"
-      "namespace" = "istio-ingress"
+    metadata = {
+      name      = "global"
+      namespace = "istio-ingress"
     }
 
-    "spec" = {
-      "selector" = {
-        "istio" = "gateway"
+    spec = {
+      selector = {
+        istio = "gateway"
       }
 
-      "servers" = [
+      servers = [
         {
-          "port" = {
-            "name"     = "https"
-            "number"   = 443
-            "protocol" = "HTTPS"
+          port = {
+            name     = "https"
+            number   = 443
+            protocol = "HTTPS"
           }
 
-          "hosts" = [
+          hosts = [
             "*"
           ]
 
-          "tls" = {
+          tls = {
 
             # As part of the incoming TLS connection, the gateway will decrypt the traffic in order to apply the routing rules.
             # This is an additional manual step to configure the gateway to use the TLS certificate. This is not recommended for production use.
@@ -114,8 +114,8 @@ resource "kubernetes_manifest" "istio_gateway" {
             # openssl x509 -req -sha256 -days 365 -CA osinfra.io.crt -CAkey osinfra.io.key -set_serial 0 -in gateway.istio-ingress.svc.cluster.local.csr -out gateway.istio-ingress.svc.cluster.local.crt
             # kubectl create -n istio-ingress secret tls gateway-tls --key=gateway.istio-ingress.svc.cluster.local.key --cert=gateway.istio-ingress.svc.cluster.local.crt
 
-            "mode"           = "SIMPLE"
-            "credentialName" = "gateway-tls"
+            mode           = "SIMPLE"
+            credentialName = "gateway-tls"
           }
         }
       ]
@@ -125,19 +125,34 @@ resource "kubernetes_manifest" "istio_gateway" {
 
 resource "kubernetes_manifest" "istio_peer_authentication" {
   manifest = {
-    "apiVersion" = "security.istio.io/v1beta1"
-    "kind"       = "PeerAuthentication"
+    apiVersion = "security.istio.io/v1beta1"
+    kind       = "PeerAuthentication"
 
-    "metadata" = {
-      "name"      = "default"
-      "namespace" = "istio-system"
+    metadata = {
+      name      = "default"
+      namespace = "istio-system"
     }
 
-    "spec" = {
-      "mtls" = {
-        "mode" = "STRICT"
+    spec = {
+      mtls = {
+        mode = "STRICT"
       }
     }
+  }
+}
+
+resource "kubernetes_manifest" "istio_authorization_policy" {
+  manifest = {
+    apiVersion = "security.istio.io/v1"
+    kind       = "AuthorizationPolicy"
+
+    metadata = {
+      name      = "deny-all"
+      namespace = "istio-system"
+    }
+
+    # It's recommended to define authorization policies following the default-deny pattern to enhance your cluster’s security posture.
+    spec = {}
   }
 }
 
@@ -145,30 +160,31 @@ resource "kubernetes_manifest" "istio_virtual_services" {
   for_each = merge(var.istio_virtual_services, var.common_istio_virtual_services)
 
   manifest = {
-    "apiVersion" = "networking.istio.io/v1beta1"
-    "kind"       = "VirtualService"
+    apiVersion = "networking.istio.io/v1beta1"
+    kind       = "VirtualService"
 
-    "metadata" = {
-      "name"      = each.key
-      "namespace" = "istio-ingress"
+    metadata = {
+      name      = each.key
+      namespace = "istio-ingress"
     }
 
-    "spec" = {
-      "gateways" = [
+    spec = {
+      gateways = [
         kubernetes_manifest.istio_gateway.manifest.metadata.name
       ]
-      "hosts" = [
+
+      hosts = [
         each.value.host
       ]
 
-      "http" = [
+      http = [
         {
-          "route" = [
+          route = [
             {
-              "destination" = {
-                "host" = each.value.destination_host
-                "port" = {
-                  "number" = each.value.destination_port
+              destination = {
+                host = each.value.destination_host
+                port = {
+                  number = each.value.destination_port
                 }
               }
             }
@@ -183,34 +199,38 @@ resource "kubernetes_manifest" "gke_info_istio_virtual_services" {
   for_each = merge(var.gke_info_istio_virtual_services, var.common_gke_info_istio_virtual_services)
 
   manifest = {
-    "apiVersion" = "networking.istio.io/v1beta1"
-    "kind"       = "VirtualService"
-    "metadata" = {
-      "name"      = each.key
-      "namespace" = "istio-ingress"
+    apiVersion = "networking.istio.io/v1beta1"
+    kind       = "VirtualService"
+    metadata = {
+      name      = each.key
+      namespace = "istio-ingress"
     }
-    "spec" = {
-      "gateways" = [
+
+    spec = {
+      gateways = [
         kubernetes_manifest.istio_gateway.manifest.metadata.name
       ]
-      "hosts" = [
+
+      hosts = [
         each.value.host
       ]
-      "http" = [
+
+      http = [
         {
-          "match" = [
+          match = [
             {
-              "uri" = {
-                "prefix" = "/gke-info-go"
+              uri = {
+                prefix = "/gke-info-go"
               }
             }
           ]
-          "route" = [
+
+          route = [
             {
-              "destination" = {
-                "host" = each.value.destination_host
-                "port" = {
-                  "number" = 8080
+              destination = {
+                host = each.value.destination_host
+                port = {
+                  number = 8080
                 }
               }
             }
