@@ -152,6 +152,8 @@ resource "kubernetes_manifest" "istio_authorization_policy" {
     }
 
     # It's recommended to define authorization policies following the default-deny pattern to enhance your cluster’s security posture.
+    # The spec field of the policy has the empty value {}. That value means that no traffic is permitted, effectively denying all requests.
+
     spec = {}
   }
 }
