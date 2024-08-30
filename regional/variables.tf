@@ -38,24 +38,6 @@ variable "istio_chart_repository" {
   default     = "https://istio-release.storage.googleapis.com/charts"
 }
 
-variable "istio_config_cluster" {
-  description = "Boolean to configure a remote cluster as the config cluster for an external istiod"
-  type        = bool
-  default     = false
-}
-
-variable "istio_control_plane_clusters" {
-  description = "The GKE clusters that will be used as Istio control planes"
-  type        = string
-  default     = null
-}
-
-variable "istio_external_istiod" {
-  description = "Boolean to configure a remote cluster data plane controlled by an external istiod"
-  type        = bool
-  default     = false
-}
-
 variable "istio_gateway_cpu_request" {
   description = "The CPU request for the Istio gateway"
   type        = string
@@ -153,18 +135,6 @@ variable "istio_proxy_memory_limit" {
   description = "The memory limit for the Istio proxy"
   type        = string
   default     = "1024Mi"
-}
-
-variable "istio_remote_injection_path" {
-  description = "The sidecar injector mutating webhook configuration path value for the clientConfig.service field"
-  type        = string
-  default     = "/inject"
-}
-
-variable "istio_remote_injection_url" {
-  description = "The sidecar injector mutating webhook configuration clientConfig.url value"
-  type        = string
-  default     = ""
 }
 
 variable "istio_version" {

@@ -52,33 +52,13 @@ resource "helm_release" "istiod" {
   }
 
   set {
-    name  = "global.configCluster"
-    value = var.istio_config_cluster
-  }
-
-  set {
     name  = "global.multiCluster.clusterName"
     value = local.multi_cluster_name
   }
 
   set {
-    name  = "istioRemote.injectionURL"
-    value = var.istio_remote_injection_url
-  }
-
-  set {
-    name  = "istioRemote.injectionPath"
-    value = var.istio_remote_injection_path
-  }
-
-  set {
     name  = "pilot.autoscaleMin"
     value = var.istio_pilot_autoscale_min
-  }
-
-  set {
-    name  = "pilot.env.EXTERNAL_ISTIOD"
-    value = var.istio_external_istiod
   }
 
   set {
@@ -208,6 +188,9 @@ resource "helm_release" "gateway" {
   set {
     name  = "podAnnotations.proxy\\.istio\\.io/config"
     value = <<EOF
+    tracing:
+      datadog:
+        address: $(HOST_IP):8126
     proxyMetadata:
       DD_ENV: ${var.environment}
       DD_SERVICE: istio-gateway
@@ -292,6 +275,9 @@ resource "kubernetes_manifest" "istio_gateway_backendconfig" {
         type               = "HTTP"
         unhealthyThreshold = "2"
       }
+      securityPolicy = {
+        name = "istio-gateway"
+      }
     }
   }
 }
@@ -307,7 +293,7 @@ resource "kubernetes_manifest" "istio_gateway_frontendconfig" {
       namespace = kubernetes_namespace_v1.istio_ingress[0].metadata.0.name
     }
     spec = {
-      sslPolicy = "default"
+      sslPolicy = "istio-gateway"
       redirectToHttps = {
         enabled = true
       }
@@ -416,24 +402,6 @@ resource "kubernetes_manifest" "istio_gateway_mci" {
   }
 }
 
-resource "kubernetes_manifest" "istio_service_exports" {
-  count = var.istio_external_istiod ? 1 : 0
-
-  manifest = {
-    "apiVersion" = "net.gke.io/v1"
-    "kind"       = "ServiceExport"
-
-    "metadata" = {
-      "name"      = "istiod"
-      "namespace" = kubernetes_namespace_v1.istio_system.metadata.0.name
-    }
-  }
-
-  depends_on = [
-    helm_release.istiod
-  ]
-}
-
 # Kubernetes Namespace Resource
 # https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace_v1
 
@@ -451,10 +419,6 @@ resource "kubernetes_namespace_v1" "istio_ingress" {
 
 resource "kubernetes_namespace_v1" "istio_system" {
   metadata {
-    annotations = var.istio_control_plane_clusters != null ? {
-      "topology.istio.io/controlPlaneClusters" = var.istio_control_plane_clusters
-    } : {}
-
     name = "istio-system"
   }
 }
