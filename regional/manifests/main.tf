@@ -123,6 +123,39 @@ resource "kubernetes_manifest" "istio_gateway" {
   }
 }
 
+resource "kubernetes_manifest" "istio_gateway_authorization_policy" {
+  manifest = {
+    apiVersion = "security.istio.io/v1"
+    kind       = "AuthorizationPolicy"
+
+    metadata = {
+      name      = "allow-all-gateway"
+      namespace = "istio-ingress"
+    }
+
+    spec = {
+      action = "ALLOW"
+      rules = [
+        {
+          to = [
+            {
+              operation = {
+                methods = ["*"]
+              }
+            }
+          ]
+        }
+      ]
+
+      selector = {
+        matchLabels = {
+          istio = "gateway"
+        }
+      }
+    }
+  }
+}
+
 resource "kubernetes_manifest" "istio_peer_authentication" {
   manifest = {
     apiVersion = "security.istio.io/v1beta1"
