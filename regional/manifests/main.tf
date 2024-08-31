@@ -123,24 +123,6 @@ resource "kubernetes_manifest" "istio_gateway" {
   }
 }
 
-resource "kubernetes_manifest" "istio_peer_authentication" {
-  manifest = {
-    apiVersion = "security.istio.io/v1beta1"
-    kind       = "PeerAuthentication"
-
-    metadata = {
-      name      = "default"
-      namespace = "istio-system"
-    }
-
-    spec = {
-      mtls = {
-        mode = "STRICT"
-      }
-    }
-  }
-}
-
 resource "kubernetes_manifest" "istio_gateway_authorization_policy" {
   manifest = {
     apiVersion = "security.istio.io/v1"
@@ -158,6 +140,7 @@ resource "kubernetes_manifest" "istio_gateway_authorization_policy" {
         }
       }
 
+      action = "ALLOW"
       rules = [
         {
           to = [
@@ -169,6 +152,24 @@ resource "kubernetes_manifest" "istio_gateway_authorization_policy" {
           ]
         }
       ]
+    }
+  }
+}
+
+resource "kubernetes_manifest" "istio_peer_authentication" {
+  manifest = {
+    apiVersion = "security.istio.io/v1beta1"
+    kind       = "PeerAuthentication"
+
+    metadata = {
+      name      = "default"
+      namespace = "istio-system"
+    }
+
+    spec = {
+      mtls = {
+        mode = "STRICT"
+      }
     }
   }
 }
