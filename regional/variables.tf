@@ -1,7 +1,7 @@
 variable "artifact_registry" {
   description = "The registry to pull the images from"
   type        = string
-  default     = "us-docker.pkg.dev/plt-lz-services-tf79-prod/platform-docker-virtual"
+  default     = "us-docker.pkg.dev/plt-lz-services-tf79-prod/plt-docker-virtual"
 }
 
 variable "cluster_prefix" {
