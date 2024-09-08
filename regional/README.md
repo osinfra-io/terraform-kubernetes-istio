@@ -11,7 +11,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 6.0.1 |
+| <a name="provider_google"></a> [google](#provider\_google) | 6.1.0 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | 2.15.0 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.32.0 |
 
