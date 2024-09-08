@@ -62,6 +62,16 @@ resource "helm_release" "istiod" {
   }
 
   set {
+    name  = "pilot.deploymentLabels.tags\\.datadoghq\\.com/env"
+    value = var.environment
+  }
+
+  set {
+    name  = "pilot.deploymentLabels.tags\\.datadoghq\\.com/version"
+    value = var.istio_version
+  }
+
+  set {
     name  = "pilot.podLabels.tags\\.datadoghq\\.com/env"
     value = var.environment
   }
@@ -163,16 +173,6 @@ resource "helm_release" "gateway" {
   set {
     name  = "labels.tags\\.datadoghq\\.com/env"
     value = var.environment
-  }
-
-  set {
-    name  = "labels.tags\\.datadoghq\\.com/service"
-    value = "istio-gateway"
-  }
-
-  set {
-    name  = "labels.tags\\.datadoghq\\.com/source"
-    value = "envoy"
   }
 
   set {

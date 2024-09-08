@@ -20,13 +20,9 @@ podAnnotations:
 podDisruptionBudget:
   maxUnavailable: 1
 
-resources:
-  requests:
-    cpu: 100m
-    memory: 128Mi
-  limits:
-    cpu: 2000m
-    memory: 1024Mi
+podLabels:
+  tags.datadoghq.com/service: istio-gateway
+  tags.datadoghq.com/source: envoy
 
 service:
   type: NodePort

@@ -17,6 +17,10 @@ pilot:
   cpu:
     targetAverageUtilization: 80
 
+  deploymentLabels:
+    tags.datadoghq.com/service: istio-control-plane
+    tags.datadoghq.com/source: istio
+
   podAnnotations:
     ad.datadoghq.com/discovery.check_names: '["istio"]'
     ad.datadoghq.com/discovery.init_configs: '[{}]'
