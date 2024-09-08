@@ -2,6 +2,15 @@
 # https://www.terraform.io/docs/language/values/locals.html
 
 locals {
+  env = lookup(local.env_map, var.environment, "none")
+
+  env_map = {
+    "non-production" = "non-prod"
+    "production"     = "prod"
+    "sandbox"        = "sb"
+
+  }
+
   istio_gateway_datadog_apm_env = <<EOF
     {
     \"DD_ENV\":\"${var.environment}\"\,
@@ -16,5 +25,5 @@ locals {
 
   istio_gateway_domains = keys(var.istio_gateway_dns)
   name                  = var.node_location == null ? var.region : "${var.region}-${var.node_location}"
-  multi_cluster_name    = "${var.cluster_prefix}-${var.region}-${var.environment}"
+  multi_cluster_name    = "${var.cluster_prefix}-${var.region}-${local.env}"
 }
