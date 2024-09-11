@@ -41,13 +41,13 @@ variable "istio_chart_repository" {
 variable "istio_gateway_cpu_request" {
   description = "The CPU request for the Istio gateway"
   type        = string
-  default     = "100m"
+  default     = "25m"
 }
 
 variable "istio_gateway_cpu_limit" {
   description = "The CPU limit for the Istio gateway"
   type        = string
-  default     = "2000m"
+  default     = "100m"
 }
 
 variable "istio_gateway_dns" {
@@ -68,13 +68,13 @@ variable "istio_gateway_mci_global_address" {
 variable "istio_gateway_memory_request" {
   description = "The memory request for the Istio gateway"
   type        = string
-  default     = "128Mi"
+  default     = "32Mi"
 }
 
 variable "istio_gateway_memory_limit" {
   description = "The memory limit for the Istio gateway"
   type        = string
-  default     = "1024Mi"
+  default     = "128Mi"
 }
 
 variable "istio_pilot_autoscale_min" {
