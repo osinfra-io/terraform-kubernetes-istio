@@ -25,7 +25,6 @@ variable "environment" {
     error_message = "The environment must be one of `mock-environment` for tests or `sandbox`, `non-production`, or `production`."
   }
 }
-
 variable "gateway_autoscale_min" {
   description = "The minimum number of gateway replicas to run"
   type        = number
@@ -38,13 +37,13 @@ variable "istio_chart_repository" {
   default     = "https://istio-release.storage.googleapis.com/charts"
 }
 
-variable "istio_gateway_cpu_request" {
+variable "istio_gateway_cpu_requests" {
   description = "The CPU request for the Istio gateway"
   type        = string
   default     = "25m"
 }
 
-variable "istio_gateway_cpu_limit" {
+variable "istio_gateway_cpu_limits" {
   description = "The CPU limit for the Istio gateway"
   type        = string
   default     = "100m"
@@ -65,13 +64,13 @@ variable "istio_gateway_mci_global_address" {
   default     = ""
 }
 
-variable "istio_gateway_memory_request" {
+variable "istio_gateway_memory_requests" {
   description = "The memory request for the Istio gateway"
   type        = string
   default     = "32Mi"
 }
 
-variable "istio_gateway_memory_limit" {
+variable "istio_gateway_memory_limits" {
   description = "The memory limit for the Istio gateway"
   type        = string
   default     = "128Mi"
@@ -83,25 +82,25 @@ variable "istio_pilot_autoscale_min" {
   default     = 1
 }
 
-variable "istio_pilot_cpu_request" {
+variable "istio_pilot_cpu_requests" {
   description = "The CPU request for the Istio pilot"
   type        = string
   default     = "25m"
 }
 
-variable "istio_pilot_cpu_limit" {
+variable "istio_pilot_cpu_limits" {
   description = "The CPU limit for the Istio pilot"
   type        = string
   default     = "100m"
 }
 
-variable "istio_pilot_memory_request" {
+variable "istio_pilot_memory_requests" {
   description = "The memory request for the Istio pilot"
   type        = string
   default     = "32Mi"
 }
 
-variable "istio_pilot_memory_limit" {
+variable "istio_pilot_memory_limits" {
   description = "The memory limit for the Istio pilot"
   type        = string
   default     = "128Mi"
@@ -113,25 +112,25 @@ variable "istio_pilot_replica_count" {
   default     = 1
 }
 
-variable "istio_proxy_cpu_request" {
+variable "istio_proxy_cpu_requests" {
   description = "The CPU request for the Istio proxy"
   type        = string
   default     = "25m"
 }
 
-variable "istio_proxy_cpu_limit" {
+variable "istio_proxy_cpu_limits" {
   description = "The CPU limit for the Istio proxy"
   type        = string
   default     = "100m"
 }
 
-variable "istio_proxy_memory_request" {
+variable "istio_proxy_memory_requests" {
   description = "The memory request for the Istio proxy"
   type        = string
   default     = "32Mi"
 }
 
-variable "istio_proxy_memory_limit" {
+variable "istio_proxy_memory_limits" {
   description = "The memory limit for the Istio proxy"
   type        = string
   default     = "128Mi"

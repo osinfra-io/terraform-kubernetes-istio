@@ -83,22 +83,22 @@ resource "helm_release" "istiod" {
 
   set {
     name  = "pilot.resources.limits.cpu"
-    value = var.istio_pilot_cpu_limit
+    value = var.istio_pilot_cpu_limits
   }
 
   set {
     name  = "pilot.resources.limits.memory"
-    value = var.istio_pilot_memory_limit
+    value = var.istio_pilot_memory_limits
   }
 
   set {
     name  = "pilot.resources.requests.cpu"
-    value = var.istio_pilot_cpu_request
+    value = var.istio_pilot_cpu_requests
   }
 
   set {
     name  = "pilot.resources.requests.memory"
-    value = var.istio_pilot_memory_request
+    value = var.istio_pilot_memory_requests
   }
 
   set {
@@ -108,22 +108,22 @@ resource "helm_release" "istiod" {
 
   set {
     name  = "proxy.resources.limits.cpu"
-    value = var.istio_proxy_cpu_limit
+    value = var.istio_proxy_cpu_limits
   }
 
   set {
     name  = "proxy.resources.limits.memory"
-    value = var.istio_proxy_memory_limit
+    value = var.istio_proxy_memory_limits
   }
 
   set {
     name  = "proxy.resources.requests.cpu"
-    value = var.istio_proxy_cpu_request
+    value = var.istio_proxy_cpu_requests
   }
 
   set {
     name  = "proxy.resources.requests.memory"
-    value = var.istio_proxy_memory_request
+    value = var.istio_proxy_memory_requests
   }
 
   values = [
@@ -152,22 +152,22 @@ resource "helm_release" "gateway" {
 
   set {
     name  = "gateway.resources.limits.cpu"
-    value = var.istio_gateway_cpu_limit
+    value = var.istio_gateway_cpu_limits
   }
 
   set {
     name  = "gateway.resources.limits.memory"
-    value = var.istio_gateway_memory_limit
+    value = var.istio_gateway_memory_limits
   }
 
   set {
     name  = "gateway.resources.requests.cpu"
-    value = var.istio_gateway_cpu_request
+    value = var.istio_gateway_cpu_requests
   }
 
   set {
     name  = "gateway.resources.requests.memory"
-    value = var.istio_gateway_memory_request
+    value = var.istio_gateway_memory_requests
   }
 
   set {
