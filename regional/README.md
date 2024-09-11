@@ -54,16 +54,16 @@ No modules.
 | <a name="input_istio_gateway_memory_limit"></a> [istio\_gateway\_memory\_limit](#input\_istio\_gateway\_memory\_limit) | The memory limit for the Istio gateway | `string` | `"128Mi"` | no |
 | <a name="input_istio_gateway_memory_request"></a> [istio\_gateway\_memory\_request](#input\_istio\_gateway\_memory\_request) | The memory request for the Istio gateway | `string` | `"32Mi"` | no |
 | <a name="input_istio_pilot_autoscale_min"></a> [istio\_pilot\_autoscale\_min](#input\_istio\_pilot\_autoscale\_min) | The minimum number of Istio pilot replicas to run | `number` | `1` | no |
-| <a name="input_istio_pilot_cpu_limit"></a> [istio\_pilot\_cpu\_limit](#input\_istio\_pilot\_cpu\_limit) | The CPU limit for the Istio pilot | `string` | `"1000m"` | no |
-| <a name="input_istio_pilot_cpu_request"></a> [istio\_pilot\_cpu\_request](#input\_istio\_pilot\_cpu\_request) | The CPU request for the Istio pilot | `string` | `"500m"` | no |
-| <a name="input_istio_pilot_memory_limit"></a> [istio\_pilot\_memory\_limit](#input\_istio\_pilot\_memory\_limit) | The memory limit for the Istio pilot | `string` | `"4096Mi"` | no |
-| <a name="input_istio_pilot_memory_request"></a> [istio\_pilot\_memory\_request](#input\_istio\_pilot\_memory\_request) | The memory request for the Istio pilot | `string` | `"2048Mi"` | no |
+| <a name="input_istio_pilot_cpu_limit"></a> [istio\_pilot\_cpu\_limit](#input\_istio\_pilot\_cpu\_limit) | The CPU limit for the Istio pilot | `string` | `"100m"` | no |
+| <a name="input_istio_pilot_cpu_request"></a> [istio\_pilot\_cpu\_request](#input\_istio\_pilot\_cpu\_request) | The CPU request for the Istio pilot | `string` | `"25m"` | no |
+| <a name="input_istio_pilot_memory_limit"></a> [istio\_pilot\_memory\_limit](#input\_istio\_pilot\_memory\_limit) | The memory limit for the Istio pilot | `string` | `"128Mi"` | no |
+| <a name="input_istio_pilot_memory_request"></a> [istio\_pilot\_memory\_request](#input\_istio\_pilot\_memory\_request) | The memory request for the Istio pilot | `string` | `"32Mi"` | no |
 | <a name="input_istio_pilot_replica_count"></a> [istio\_pilot\_replica\_count](#input\_istio\_pilot\_replica\_count) | The number of Istio pilot replicas to run | `number` | `1` | no |
-| <a name="input_istio_proxy_cpu_limit"></a> [istio\_proxy\_cpu\_limit](#input\_istio\_proxy\_cpu\_limit) | The CPU limit for the Istio proxy | `string` | `"2000m"` | no |
-| <a name="input_istio_proxy_cpu_request"></a> [istio\_proxy\_cpu\_request](#input\_istio\_proxy\_cpu\_request) | The CPU request for the Istio proxy | `string` | `"100m"` | no |
-| <a name="input_istio_proxy_memory_limit"></a> [istio\_proxy\_memory\_limit](#input\_istio\_proxy\_memory\_limit) | The memory limit for the Istio proxy | `string` | `"1024Mi"` | no |
-| <a name="input_istio_proxy_memory_request"></a> [istio\_proxy\_memory\_request](#input\_istio\_proxy\_memory\_request) | The memory request for the Istio proxy | `string` | `"128Mi"` | no |
-| <a name="input_istio_version"></a> [istio\_version](#input\_istio\_version) | The version of istio to install | `string` | `"1.23.0"` | no |
+| <a name="input_istio_proxy_cpu_limit"></a> [istio\_proxy\_cpu\_limit](#input\_istio\_proxy\_cpu\_limit) | The CPU limit for the Istio proxy | `string` | `"100m"` | no |
+| <a name="input_istio_proxy_cpu_request"></a> [istio\_proxy\_cpu\_request](#input\_istio\_proxy\_cpu\_request) | The CPU request for the Istio proxy | `string` | `"25m"` | no |
+| <a name="input_istio_proxy_memory_limit"></a> [istio\_proxy\_memory\_limit](#input\_istio\_proxy\_memory\_limit) | The memory limit for the Istio proxy | `string` | `"128Mi"` | no |
+| <a name="input_istio_proxy_memory_request"></a> [istio\_proxy\_memory\_request](#input\_istio\_proxy\_memory\_request) | The memory request for the Istio proxy | `string` | `"32Mi"` | no |
+| <a name="input_istio_version"></a> [istio\_version](#input\_istio\_version) | The version of istio to install | `string` | `"1.23.1"` | no |
 | <a name="input_labels"></a> [labels](#input\_labels) | A map of key/value pairs to assign to the resources being created | `map(string)` | `{}` | no |
 | <a name="input_multi_cluster_service_clusters"></a> [multi\_cluster\_service\_clusters](#input\_multi\_cluster\_service\_clusters) | List of clusters to be included in the MultiClusterService | <pre>list(object({<br>    link = string<br>  }))</pre> | `[]` | no |
 | <a name="input_node_location"></a> [node\_location](#input\_node\_location) | The zone in which the cluster's nodes should be located. If not specified, the cluster's nodes are located across zones in the region | `string` | `null` | no |

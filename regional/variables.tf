@@ -86,25 +86,25 @@ variable "istio_pilot_autoscale_min" {
 variable "istio_pilot_cpu_request" {
   description = "The CPU request for the Istio pilot"
   type        = string
-  default     = "500m"
+  default     = "25m"
 }
 
 variable "istio_pilot_cpu_limit" {
   description = "The CPU limit for the Istio pilot"
   type        = string
-  default     = "1000m"
+  default     = "100m"
 }
 
 variable "istio_pilot_memory_request" {
   description = "The memory request for the Istio pilot"
   type        = string
-  default     = "2048Mi"
+  default     = "32Mi"
 }
 
 variable "istio_pilot_memory_limit" {
   description = "The memory limit for the Istio pilot"
   type        = string
-  default     = "4096Mi"
+  default     = "128Mi"
 }
 
 variable "istio_pilot_replica_count" {
@@ -116,31 +116,31 @@ variable "istio_pilot_replica_count" {
 variable "istio_proxy_cpu_request" {
   description = "The CPU request for the Istio proxy"
   type        = string
-  default     = "100m"
+  default     = "25m"
 }
 
 variable "istio_proxy_cpu_limit" {
   description = "The CPU limit for the Istio proxy"
   type        = string
-  default     = "2000m"
+  default     = "100m"
 }
 
 variable "istio_proxy_memory_request" {
   description = "The memory request for the Istio proxy"
   type        = string
-  default     = "128Mi"
+  default     = "32Mi"
 }
 
 variable "istio_proxy_memory_limit" {
   description = "The memory limit for the Istio proxy"
   type        = string
-  default     = "1024Mi"
+  default     = "128Mi"
 }
 
 variable "istio_version" {
   description = "The version of istio to install"
   type        = string
-  default     = "1.23.0"
+  default     = "1.23.1"
 }
 
 variable "labels" {
