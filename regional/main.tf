@@ -151,26 +151,6 @@ resource "helm_release" "gateway" {
   }
 
   set {
-    name  = "gateway.resources.limits.cpu"
-    value = var.istio_gateway_cpu_limits
-  }
-
-  set {
-    name  = "gateway.resources.limits.memory"
-    value = var.istio_gateway_memory_limits
-  }
-
-  set {
-    name  = "gateway.resources.requests.cpu"
-    value = var.istio_gateway_cpu_requests
-  }
-
-  set {
-    name  = "gateway.resources.requests.memory"
-    value = var.istio_gateway_memory_requests
-  }
-
-  set {
     name  = "labels.tags\\.datadoghq\\.com/env"
     value = var.environment
   }
@@ -196,6 +176,26 @@ resource "helm_release" "gateway" {
       DD_SERVICE: istio-gateway
       DD_VERSION: ${var.istio_version}
     EOF
+  }
+
+  set {
+    name  = "resources.limits.cpu"
+    value = var.istio_gateway_cpu_limits
+  }
+
+  set {
+    name  = "resources.limits.memory"
+    value = var.istio_gateway_memory_limits
+  }
+
+  set {
+    name  = "resources.requests.cpu"
+    value = var.istio_gateway_cpu_requests
+  }
+
+  set {
+    name  = "resources.requests.memory"
+    value = var.istio_gateway_memory_requests
   }
 
   values = [
