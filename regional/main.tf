@@ -57,6 +57,26 @@ resource "helm_release" "istiod" {
   }
 
   set {
+    name  = "global.proxy.resources.limits.cpu"
+    value = var.istio_proxy_cpu_limits
+  }
+
+  set {
+    name  = "global.proxy.resources.limits.memory"
+    value = var.istio_proxy_memory_limits
+  }
+
+  set {
+    name  = "global.proxy.resources.requests.cpu"
+    value = var.istio_proxy_cpu_requests
+  }
+
+  set {
+    name  = "global.proxy.resources.requests.memory"
+    value = var.istio_proxy_memory_requests
+  }
+
+  set {
     name  = "pilot.autoscaleMin"
     value = var.istio_pilot_autoscale_min
   }
@@ -104,26 +124,6 @@ resource "helm_release" "istiod" {
   set {
     name  = "pilot.replicaCount"
     value = var.istio_pilot_replica_count
-  }
-
-  set {
-    name  = "proxy.resources.limits.cpu"
-    value = var.istio_proxy_cpu_limits
-  }
-
-  set {
-    name  = "proxy.resources.limits.memory"
-    value = var.istio_proxy_memory_limits
-  }
-
-  set {
-    name  = "proxy.resources.requests.cpu"
-    value = var.istio_proxy_cpu_requests
-  }
-
-  set {
-    name  = "proxy.resources.requests.memory"
-    value = var.istio_proxy_memory_requests
   }
 
   values = [
