@@ -112,13 +112,13 @@ variable "pilot_autoscale_min" {
 variable "pilot_cpu_limits" {
   description = "The CPU limit for the Istio pilot"
   type        = string
-  default     = "50m"
+  default     = "25m"
 }
 
 variable "pilot_cpu_requests" {
   description = "The CPU request for the Istio pilot"
   type        = string
-  default     = "25m"
+  default     = "10m"
 }
 
 variable "pilot_memory_limits" {

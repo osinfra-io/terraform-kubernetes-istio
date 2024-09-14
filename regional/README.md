@@ -11,9 +11,9 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 6.1.0 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.15.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.32.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | 5.40.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.14.1 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.31.0 |
 
 ## Modules
 
@@ -58,8 +58,8 @@ No modules.
 | <a name="input_multi_cluster_service_clusters"></a> [multi\_cluster\_service\_clusters](#input\_multi\_cluster\_service\_clusters) | List of clusters to be included in the MultiClusterService | <pre>list(object({<br>    link = string<br>  }))</pre> | `[]` | no |
 | <a name="input_node_location"></a> [node\_location](#input\_node\_location) | The zone in which the cluster's nodes should be located. If not specified, the cluster's nodes are located across zones in the region | `string` | `null` | no |
 | <a name="input_pilot_autoscale_min"></a> [pilot\_autoscale\_min](#input\_pilot\_autoscale\_min) | The minimum number of Istio pilot replicas to run | `number` | `1` | no |
-| <a name="input_pilot_cpu_limits"></a> [pilot\_cpu\_limits](#input\_pilot\_cpu\_limits) | The CPU limit for the Istio pilot | `string` | `"50m"` | no |
-| <a name="input_pilot_cpu_requests"></a> [pilot\_cpu\_requests](#input\_pilot\_cpu\_requests) | The CPU request for the Istio pilot | `string` | `"25m"` | no |
+| <a name="input_pilot_cpu_limits"></a> [pilot\_cpu\_limits](#input\_pilot\_cpu\_limits) | The CPU limit for the Istio pilot | `string` | `"25m"` | no |
+| <a name="input_pilot_cpu_requests"></a> [pilot\_cpu\_requests](#input\_pilot\_cpu\_requests) | The CPU request for the Istio pilot | `string` | `"10m"` | no |
 | <a name="input_pilot_memory_limits"></a> [pilot\_memory\_limits](#input\_pilot\_memory\_limits) | The memory limit for the Istio pilot | `string` | `"64Mi"` | no |
 | <a name="input_pilot_memory_requests"></a> [pilot\_memory\_requests](#input\_pilot\_memory\_requests) | The memory request for the Istio pilot | `string` | `"32Mi"` | no |
 | <a name="input_pilot_replica_count"></a> [pilot\_replica\_count](#input\_pilot\_replica\_count) | The number of Istio pilot replicas to run | `number` | `1` | no |
