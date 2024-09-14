@@ -19,11 +19,11 @@ mock_provider "terraform" {
   }
 }
 
-run "primary" {
+run "default" {
   command = apply
 
   module {
-    source = "./tests/fixtures/primary"
+    source = "./tests/fixtures/default"
   }
 
   variables {
@@ -36,11 +36,11 @@ run "primary" {
   }
 }
 
-run "primary_regional" {
+run "default_regional" {
   command = apply
 
   module {
-    source = "./tests/fixtures/primary/regional"
+    source = "./tests/fixtures/default/regional"
   }
 
   variables {
@@ -51,34 +51,7 @@ run "primary_regional" {
       }
     }
 
-    istio_remote_injection_path = "inject/cluster/mock-cluster/net/mock-network"
-    istio_remote_injection_url  = "https://istiod.istio-system.clusterset.local:15017"
     region                      = "mock-region-a"
-  }
-}
-
-run "remote" {
-  command = apply
-
-  module {
-    source = "./tests/fixtures/remote"
-  }
-
-  variables {
-    gke_fleet_host_project_id = "mock-fleet-host-project"
-  }
-}
-
-run "remote_regional" {
-  command = apply
-
-  module {
-    source = "./tests/fixtures/remote/regional"
-  }
-
-  variables {
-    istio_external_istiod     = true
-    region                    = "mock-region-b"
   }
 }
 

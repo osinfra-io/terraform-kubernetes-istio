@@ -11,9 +11,9 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 5.40.0 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.14.1 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.31.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | 6.2.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.15.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.32.0 |
 
 ## Modules
 
@@ -74,5 +74,5 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_istio_gateway_ip"></a> [istio\_gateway\_ip](#output\_istio\_gateway\_ip) | The IP address of the Istio Gateway |
+| <a name="output_gateway_ip"></a> [gateway\_ip](#output\_gateway\_ip) | The IP address of the Istio Gateway |
 <!-- END_TF_DOCS -->

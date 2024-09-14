@@ -5,10 +5,17 @@ variable "environment" {
   type = string
 }
 
-variable "gke_fleet_host_project_id" {
-  type = string
+variable "gateway_dns" {
+  type = map(object({
+    managed_zone = string
+    project      = string
+  }))
 }
 
 variable "project" {
+  type = string
+}
+
+variable "region" {
   type = string
 }

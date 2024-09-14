@@ -312,7 +312,7 @@ resource "kubernetes_manifest" "istio_gateway_managed_certificate" {
       namespace = kubernetes_namespace_v1.istio_ingress[0].metadata.0.name
     }
     spec = {
-      domains = local.istio_gateway_domains
+      domains = local.gateway_domains
     }
   }
 }

@@ -19,7 +19,7 @@ resource "google_compute_managed_ssl_certificate" "istio_gateway_mci" {
   count = var.gke_fleet_host_project_id == "" ? 1 : 0
 
   managed {
-    domains = local.istio_gateway_domains
+    domains = local.gateway_domains
   }
 
   name    = "istio-gateway-mci"
