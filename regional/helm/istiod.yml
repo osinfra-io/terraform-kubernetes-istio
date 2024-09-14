@@ -15,7 +15,7 @@ pilot:
   autoscaleMax: 5
 
   cpu:
-    targetAverageUtilization: 80
+    targetAverageUtilization: 85
 
   deploymentLabels:
     tags.datadoghq.com/service: istio-control-plane
