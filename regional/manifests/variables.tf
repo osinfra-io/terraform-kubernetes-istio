@@ -1,4 +1,4 @@
-variable "common_gke_info_istio_virtual_services" {
+variable "common_gke_info_virtual_services" {
   description = "The map of Istio VirtualServices to create for GKE Info, that are common among all regions"
   type = map(object({
     destination_host = string
@@ -6,7 +6,7 @@ variable "common_gke_info_istio_virtual_services" {
   }))
 }
 
-variable "common_istio_virtual_services" {
+variable "common_virtual_services" {
   description = "The map of Istio VirtualServices to create, that are common among all regions"
   type = map(object({
     destination_host = string
@@ -15,7 +15,19 @@ variable "common_istio_virtual_services" {
   }))
 }
 
-variable "gke_info_istio_virtual_services" {
+variable "failover_from_region" {
+  description = "The region to fail over from"
+  type        = string
+  default     = ""
+}
+
+variable "failover_to_region" {
+  description = "The region to fail over to"
+  type        = string
+  default     = ""
+}
+
+variable "gke_info_virtual_services" {
   description = "The map of Istio VirtualServices to create for GKE Info"
   type = map(object({
     destination_host = string
@@ -23,19 +35,7 @@ variable "gke_info_istio_virtual_services" {
   }))
 }
 
-variable "istio_failover_from_region" {
-  description = "The region to fail over from"
-  type        = string
-  default     = ""
-}
-
-variable "istio_failover_to_region" {
-  description = "The region to fail over to"
-  type        = string
-  default     = ""
-}
-
-variable "istio_virtual_services" {
+variable "virtual_services" {
   description = "The map of Istio VirtualServices to create, that are unique to a region"
   type = map(object({
     destination_host = string

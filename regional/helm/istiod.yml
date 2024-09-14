@@ -15,7 +15,11 @@ pilot:
   autoscaleMax: 5
 
   cpu:
-    targetAverageUtilization: 80
+    targetAverageUtilization: 85
+
+  deploymentLabels:
+    tags.datadoghq.com/service: istio-control-plane
+    tags.datadoghq.com/source: istio
 
   podAnnotations:
     ad.datadoghq.com/discovery.check_names: '["istio"]'

@@ -14,7 +14,7 @@ resource "google_compute_global_address" "istio_gateway" {
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/dns_record_set
 
 resource "google_dns_record_set" "istio_gateway" {
-  for_each = var.istio_gateway_dns
+  for_each = var.gateway_dns
 
   managed_zone = each.value.managed_zone
   name         = "${each.key}."
@@ -31,7 +31,7 @@ resource "helm_release" "base" {
   chart      = "base"
   name       = "base"
   namespace  = kubernetes_namespace_v1.istio_system.metadata.0.name
-  repository = var.istio_chart_repository
+  repository = var.chart_repository
 
   values = [
     file("${path.module}/helm/base.yml")
@@ -44,7 +44,7 @@ resource "helm_release" "istiod" {
   chart      = "istiod"
   name       = "istiod"
   namespace  = kubernetes_namespace_v1.istio_system.metadata.0.name
-  repository = var.istio_chart_repository
+  repository = var.chart_repository
 
   set {
     name  = "global.hub"
@@ -57,8 +57,38 @@ resource "helm_release" "istiod" {
   }
 
   set {
+    name  = "global.proxy.resources.limits.cpu"
+    value = var.proxy_cpu_limits
+  }
+
+  set {
+    name  = "global.proxy.resources.limits.memory"
+    value = var.proxy_memory_limits
+  }
+
+  set {
+    name  = "global.proxy.resources.requests.cpu"
+    value = var.proxy_cpu_requests
+  }
+
+  set {
+    name  = "global.proxy.resources.requests.memory"
+    value = var.proxy_memory_requests
+  }
+
+  set {
     name  = "pilot.autoscaleMin"
-    value = var.istio_pilot_autoscale_min
+    value = var.pilot_autoscale_min
+  }
+
+  set {
+    name  = "pilot.deploymentLabels.tags\\.datadoghq\\.com/env"
+    value = var.environment
+  }
+
+  set {
+    name  = "pilot.deploymentLabels.tags\\.datadoghq\\.com/version"
+    value = var.istio_version
   }
 
   set {
@@ -73,47 +103,27 @@ resource "helm_release" "istiod" {
 
   set {
     name  = "pilot.resources.limits.cpu"
-    value = var.istio_pilot_cpu_limit
+    value = var.pilot_cpu_limits
   }
 
   set {
     name  = "pilot.resources.limits.memory"
-    value = var.istio_pilot_memory_limit
+    value = var.pilot_memory_limits
   }
 
   set {
     name  = "pilot.resources.requests.cpu"
-    value = var.istio_pilot_cpu_request
+    value = var.pilot_cpu_requests
   }
 
   set {
     name  = "pilot.resources.requests.memory"
-    value = var.istio_pilot_memory_request
+    value = var.pilot_memory_requests
   }
 
   set {
     name  = "pilot.replicaCount"
-    value = var.istio_pilot_replica_count
-  }
-
-  set {
-    name  = "proxy.resources.limits.cpu"
-    value = var.istio_proxy_cpu_limit
-  }
-
-  set {
-    name  = "proxy.resources.limits.memory"
-    value = var.istio_proxy_memory_limit
-  }
-
-  set {
-    name  = "proxy.resources.requests.cpu"
-    value = var.istio_proxy_cpu_request
-  }
-
-  set {
-    name  = "proxy.resources.requests.memory"
-    value = var.istio_proxy_memory_request
+    value = var.pilot_replica_count
   }
 
   values = [
@@ -133,7 +143,7 @@ resource "helm_release" "gateway" {
   chart      = "gateway"
   name       = "gateway"
   namespace  = kubernetes_namespace_v1.istio_ingress[0].metadata.0.name
-  repository = var.istio_chart_repository
+  repository = var.chart_repository
 
   set {
     name  = "autoscaling.minReplicas"
@@ -141,38 +151,8 @@ resource "helm_release" "gateway" {
   }
 
   set {
-    name  = "gateway.resources.limits.cpu"
-    value = var.istio_gateway_cpu_limit
-  }
-
-  set {
-    name  = "gateway.resources.limits.memory"
-    value = var.istio_gateway_memory_limit
-  }
-
-  set {
-    name  = "gateway.resources.requests.cpu"
-    value = var.istio_gateway_cpu_request
-  }
-
-  set {
-    name  = "gateway.resources.requests.memory"
-    value = var.istio_gateway_memory_request
-  }
-
-  set {
     name  = "labels.tags\\.datadoghq\\.com/env"
     value = var.environment
-  }
-
-  set {
-    name  = "labels.tags\\.datadoghq\\.com/service"
-    value = "istio-gateway"
-  }
-
-  set {
-    name  = "labels.tags\\.datadoghq\\.com/source"
-    value = "envoy"
   }
 
   set {
@@ -196,6 +176,26 @@ resource "helm_release" "gateway" {
       DD_SERVICE: istio-gateway
       DD_VERSION: ${var.istio_version}
     EOF
+  }
+
+  set {
+    name  = "resources.limits.cpu"
+    value = var.gateway_cpu_limits
+  }
+
+  set {
+    name  = "resources.limits.memory"
+    value = var.gateway_memory_limits
+  }
+
+  set {
+    name  = "resources.requests.cpu"
+    value = var.gateway_cpu_requests
+  }
+
+  set {
+    name  = "resources.requests.memory"
+    value = var.gateway_memory_requests
   }
 
   values = [
@@ -312,7 +312,7 @@ resource "kubernetes_manifest" "istio_gateway_managed_certificate" {
       namespace = kubernetes_namespace_v1.istio_ingress[0].metadata.0.name
     }
     spec = {
-      domains = local.istio_gateway_domains
+      domains = local.gateway_domains
     }
   }
 }
@@ -371,7 +371,7 @@ resource "kubernetes_manifest" "istio_gateway_mci" {
       annotations = {
         "networking.gke.io/frontend-config"  = kubernetes_manifest.istio_gateway_frontendconfig[0].manifest.metadata.name
         "networking.gke.io/pre-shared-certs" = "istio-gateway-mci"
-        "networking.gke.io/static-ip"        = var.istio_gateway_mci_global_address
+        "networking.gke.io/static-ip"        = var.gateway_mci_global_address
       }
     }
 

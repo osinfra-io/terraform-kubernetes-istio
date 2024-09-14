@@ -32,8 +32,8 @@ resource "kubernetes_manifest" "istio_cluster_services_destination_rule" {
 
             failover = [
               {
-                from = var.istio_failover_from_region
-                to   = var.istio_failover_to_region
+                from = var.failover_from_region
+                to   = var.failover_to_region
               }
             ]
           }
@@ -192,7 +192,7 @@ resource "kubernetes_manifest" "istio_authorization_policy" {
 }
 
 resource "kubernetes_manifest" "istio_virtual_services" {
-  for_each = merge(var.istio_virtual_services, var.common_istio_virtual_services)
+  for_each = merge(var.virtual_services, var.common_virtual_services)
 
   manifest = {
     apiVersion = "networking.istio.io/v1beta1"
@@ -231,7 +231,7 @@ resource "kubernetes_manifest" "istio_virtual_services" {
 }
 
 resource "kubernetes_manifest" "gke_info_istio_virtual_services" {
-  for_each = merge(var.gke_info_istio_virtual_services, var.common_gke_info_istio_virtual_services)
+  for_each = merge(var.gke_info_virtual_services, var.common_gke_info_virtual_services)
 
   manifest = {
     apiVersion = "networking.istio.io/v1beta1"

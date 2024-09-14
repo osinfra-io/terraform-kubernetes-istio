@@ -2,7 +2,7 @@
 # https://www.terraform.io/docs/language/values/locals.html
 
 locals {
-  istio_gateway_domains = keys(var.istio_gateway_dns)
+  gateway_domains = keys(var.gateway_dns)
 
   preconfigured_waf_rules = [
     # Google Cloud Armor provides preconfigured WAF rules, each consisting of multiple signatures sourced from:

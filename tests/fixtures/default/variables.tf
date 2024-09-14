@@ -5,7 +5,7 @@ variable "environment" {
   type = string
 }
 
-variable "istio_gateway_dns" {
+variable "gateway_dns" {
   type = map(object({
     managed_zone = string
     project      = string

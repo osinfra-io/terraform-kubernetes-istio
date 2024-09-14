@@ -11,5 +11,4 @@ locals {
   }
 
   regional = data.terraform_remote_state.regional.outputs
-
 }

@@ -13,21 +13,21 @@ mock_provider "terraform" {
   mock_data "terraform_remote_state" {
     defaults = {
       outputs = {
-        istio_gateway_mci_global_address = "192.0.2.0" # https://www.rfc-editor.org/rfc/rfc5737#section-3
+        gateway_mci_global_address = "192.0.2.0" # https://www.rfc-editor.org/rfc/rfc5737#section-3
       }
     }
   }
 }
 
-run "primary" {
+run "default" {
   command = apply
 
   module {
-    source = "./tests/fixtures/primary"
+    source = "./tests/fixtures/default"
   }
 
   variables {
-    istio_gateway_dns = {
+    gateway_dns = {
       "mock-environment.mock-subdomain.mock-domain" = {
         managed_zone = "mock-environment-mock-subdomain-mock-domain"
         project      = "mock-dns-project"
@@ -36,49 +36,22 @@ run "primary" {
   }
 }
 
-run "primary_regional" {
+run "default_regional" {
   command = apply
 
   module {
-    source = "./tests/fixtures/primary/regional"
+    source = "./tests/fixtures/default/regional"
   }
 
   variables {
-    istio_gateway_dns = {
+    gateway_dns = {
       "mock-region-a.mock-environment.mock-subdomain.mock-domain" = {
         managed_zone = "mock-environment-mock-subdomain-mock-domain"
         project      = "mock-dns-project"
       }
     }
 
-    istio_remote_injection_path = "inject/cluster/mock-cluster/net/mock-network"
-    istio_remote_injection_url  = "https://istiod.istio-system.clusterset.local:15017"
     region                      = "mock-region-a"
-  }
-}
-
-run "remote" {
-  command = apply
-
-  module {
-    source = "./tests/fixtures/remote"
-  }
-
-  variables {
-    gke_fleet_host_project_id = "mock-fleet-host-project"
-  }
-}
-
-run "remote_regional" {
-  command = apply
-
-  module {
-    source = "./tests/fixtures/remote/regional"
-  }
-
-  variables {
-    istio_external_istiod     = true
-    region                    = "mock-region-b"
   }
 }
 

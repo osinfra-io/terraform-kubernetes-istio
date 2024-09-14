@@ -1,19 +1,19 @@
 # Input Variables
 # https://www.terraform.io/language/values/variables
 
-variable "gke_fleet_host_project_id" {
-  type        = string
-  description = "The project ID of the GKE Hub host project"
-  default     = ""
-}
-
-variable "istio_gateway_dns" {
+variable "gateway_dns" {
   description = "Map of attributes for the Istio gateway domain names, it is also used to create the managed certificate resource"
   type = map(object({
     managed_zone = string
     project      = string
   }))
   default = {}
+}
+
+variable "gke_fleet_host_project_id" {
+  type        = string
+  description = "The project ID of the GKE Hub host project"
+  default     = ""
 }
 
 variable "labels" {

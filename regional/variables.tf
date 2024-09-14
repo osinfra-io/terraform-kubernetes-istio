@@ -4,6 +4,12 @@ variable "artifact_registry" {
   default     = "us-docker.pkg.dev/plt-lz-services-tf79-prod/plt-docker-virtual"
 }
 
+variable "chart_repository" {
+  description = "The repository to pull the Istio Helm chart from"
+  type        = string
+  default     = "https://istio-release.storage.googleapis.com/charts"
+}
+
 variable "cluster_prefix" {
   description = "Prefix for your cluster name"
   type        = string
@@ -32,25 +38,19 @@ variable "gateway_autoscale_min" {
   default     = 1
 }
 
-variable "istio_chart_repository" {
-  description = "The repository to pull the Istio Helm chart from"
-  type        = string
-  default     = "https://istio-release.storage.googleapis.com/charts"
-}
-
-variable "istio_gateway_cpu_request" {
-  description = "The CPU request for the Istio gateway"
+variable "gateway_cpu_limits" {
+  description = "The CPU limit for the Istio gateway"
   type        = string
   default     = "100m"
 }
 
-variable "istio_gateway_cpu_limit" {
-  description = "The CPU limit for the Istio gateway"
+variable "gateway_cpu_requests" {
+  description = "The CPU request for the Istio gateway"
   type        = string
-  default     = "2000m"
+  default     = "25m"
 }
 
-variable "istio_gateway_dns" {
+variable "gateway_dns" {
   description = "Map of attributes for the Istio gateway domain names, it is also used to create the managed certificate resource"
   type = map(object({
     managed_zone = string
@@ -59,88 +59,28 @@ variable "istio_gateway_dns" {
   default = {}
 }
 
-variable "istio_gateway_mci_global_address" {
+variable "gateway_mci_global_address" {
   description = "The IP address for the Istio Gateway multi-cluster ingress"
   type        = string
   default     = ""
 }
 
-variable "istio_gateway_memory_request" {
-  description = "The memory request for the Istio gateway"
-  type        = string
-  default     = "128Mi"
-}
-
-variable "istio_gateway_memory_limit" {
+variable "gateway_memory_limits" {
   description = "The memory limit for the Istio gateway"
   type        = string
-  default     = "1024Mi"
+  default     = "64Mi"
 }
 
-variable "istio_pilot_autoscale_min" {
-  description = "The minimum number of Istio pilot replicas to run"
-  type        = number
-  default     = 1
-}
-
-variable "istio_pilot_cpu_request" {
-  description = "The CPU request for the Istio pilot"
+variable "gateway_memory_requests" {
+  description = "The memory request for the Istio gateway"
   type        = string
-  default     = "500m"
-}
-
-variable "istio_pilot_cpu_limit" {
-  description = "The CPU limit for the Istio pilot"
-  type        = string
-  default     = "1000m"
-}
-
-variable "istio_pilot_memory_request" {
-  description = "The memory request for the Istio pilot"
-  type        = string
-  default     = "2048Mi"
-}
-
-variable "istio_pilot_memory_limit" {
-  description = "The memory limit for the Istio pilot"
-  type        = string
-  default     = "4096Mi"
-}
-
-variable "istio_pilot_replica_count" {
-  description = "The number of Istio pilot replicas to run"
-  type        = number
-  default     = 1
-}
-
-variable "istio_proxy_cpu_request" {
-  description = "The CPU request for the Istio proxy"
-  type        = string
-  default     = "100m"
-}
-
-variable "istio_proxy_cpu_limit" {
-  description = "The CPU limit for the Istio proxy"
-  type        = string
-  default     = "2000m"
-}
-
-variable "istio_proxy_memory_request" {
-  description = "The memory request for the Istio proxy"
-  type        = string
-  default     = "128Mi"
-}
-
-variable "istio_proxy_memory_limit" {
-  description = "The memory limit for the Istio proxy"
-  type        = string
-  default     = "1024Mi"
+  default     = "32Mi"
 }
 
 variable "istio_version" {
-  description = "The version of istio to install"
+  description = "The version to install, this is used for the chart as well as the image tag"
   type        = string
-  default     = "1.23.0"
+  default     = "1.23.1"
 }
 
 variable "labels" {
@@ -163,9 +103,69 @@ variable "node_location" {
   default     = null
 }
 
+variable "pilot_autoscale_min" {
+  description = "The minimum number of Istio pilot replicas to run"
+  type        = number
+  default     = 1
+}
+
+variable "pilot_cpu_limits" {
+  description = "The CPU limit for the Istio pilot"
+  type        = string
+  default     = "25m"
+}
+
+variable "pilot_cpu_requests" {
+  description = "The CPU request for the Istio pilot"
+  type        = string
+  default     = "10m"
+}
+
+variable "pilot_memory_limits" {
+  description = "The memory limit for the Istio pilot"
+  type        = string
+  default     = "64Mi"
+}
+
+variable "pilot_memory_requests" {
+  description = "The memory request for the Istio pilot"
+  type        = string
+  default     = "32Mi"
+}
+
+variable "pilot_replica_count" {
+  description = "The number of Istio pilot replicas to run"
+  type        = number
+  default     = 1
+}
+
 variable "project" {
   description = "The ID of the project in which the resource belongs"
   type        = string
+}
+
+variable "proxy_cpu_limits" {
+  description = "The CPU limit for the Istio proxy"
+  type        = string
+  default     = "25m"
+}
+
+variable "proxy_cpu_requests" {
+  description = "The CPU request for the Istio proxy"
+  type        = string
+  default     = "10m"
+}
+
+variable "proxy_memory_limits" {
+  description = "The memory limit for the Istio proxy"
+  type        = string
+  default     = "64Mi"
+}
+
+variable "proxy_memory_requests" {
+  description = "The memory request for the Istio proxy"
+  type        = string
+  default     = "32Mi"
 }
 
 variable "region" {

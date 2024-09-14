@@ -2,7 +2,11 @@ autoscaling:
   enabled: true
   minReplicas: 1
   maxReplicas: 5
-  targetCPUUtilizationPercentage: 80
+  targetCPUUtilizationPercentage: 85
+
+labels:
+  tags.datadoghq.com/service: istio-gateway
+  tags.datadoghq.com/source: envoy
 
 podAnnotations:
   ad.datadoghq.com/istio-proxy.check_names: '["envoy"]'
@@ -19,14 +23,6 @@ podAnnotations:
 
 podDisruptionBudget:
   maxUnavailable: 1
-
-resources:
-  requests:
-    cpu: 100m
-    memory: 128Mi
-  limits:
-    cpu: 2000m
-    memory: 1024Mi
 
 service:
   type: NodePort

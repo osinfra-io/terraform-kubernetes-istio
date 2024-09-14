@@ -19,7 +19,7 @@ resource "google_compute_managed_ssl_certificate" "istio_gateway_mci" {
   count = var.gke_fleet_host_project_id == "" ? 1 : 0
 
   managed {
-    domains = local.istio_gateway_domains
+    domains = local.gateway_domains
   }
 
   name    = "istio-gateway-mci"
@@ -146,7 +146,7 @@ resource "google_compute_ssl_policy" "istio_gateway" {
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/dns_record_set
 
 resource "google_dns_record_set" "istio_gateway_mci" {
-  for_each = var.istio_gateway_dns
+  for_each = var.gateway_dns
 
   managed_zone = each.value.managed_zone
   name         = "${each.key}."
