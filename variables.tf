@@ -7,7 +7,7 @@ variable "gke_fleet_host_project_id" {
   default     = ""
 }
 
-variable "istio_gateway_dns" {
+variable "gateway_dns" {
   description = "Map of attributes for the Istio gateway domain names, it is also used to create the managed certificate resource"
   type = map(object({
     managed_zone = string

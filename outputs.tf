@@ -1,7 +1,7 @@
 # Output Values
 # https://www.terraform.io/language/values/outputs
 
-output "istio_gateway_mci_global_address" {
+output "gateway_mci_global_address" {
   description = "The IP address for the Istio Gateway multi-cluster ingress"
   value       = var.gke_fleet_host_project_id == "" ? google_compute_global_address.istio_gateway_mci[0].address : ""
 }

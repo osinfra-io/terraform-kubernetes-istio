@@ -67,7 +67,7 @@ module "test" {
   cluster_prefix       = "mock"
   enable_istio_gateway = true
   environment          = var.environment
-  istio_gateway_dns    = var.istio_gateway_dns
+  gateway_dns          = var.gateway_dns
   labels               = local.labels
 
   multi_cluster_service_clusters = [

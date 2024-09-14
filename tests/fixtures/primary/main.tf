@@ -15,7 +15,7 @@ terraform {
 module "test" {
   source = "../../../"
 
-  istio_gateway_dns = var.istio_gateway_dns
-  labels            = local.labels
-  project           = var.project
+  gateway_dns = var.gateway_dns
+  labels      = local.labels
+  project     = var.project
 }

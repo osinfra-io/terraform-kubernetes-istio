@@ -13,7 +13,7 @@ mock_provider "terraform" {
   mock_data "terraform_remote_state" {
     defaults = {
       outputs = {
-        istio_gateway_mci_global_address = "192.0.2.0" # https://www.rfc-editor.org/rfc/rfc5737#section-3
+        gateway_mci_global_address = "192.0.2.0" # https://www.rfc-editor.org/rfc/rfc5737#section-3
       }
     }
   }
@@ -27,7 +27,7 @@ run "primary" {
   }
 
   variables {
-    istio_gateway_dns = {
+    gateway_dns = {
       "mock-environment.mock-subdomain.mock-domain" = {
         managed_zone = "mock-environment-mock-subdomain-mock-domain"
         project      = "mock-dns-project"
@@ -44,7 +44,7 @@ run "primary_regional" {
   }
 
   variables {
-    istio_gateway_dns = {
+    gateway_dns = {
       "mock-region-a.mock-environment.mock-subdomain.mock-domain" = {
         managed_zone = "mock-environment-mock-subdomain-mock-domain"
         project      = "mock-dns-project"

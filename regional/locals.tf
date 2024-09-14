@@ -23,7 +23,7 @@ locals {
     {\"tracing\":{\"datadog\":{\"address\":\"$(HOST_IP):8126\"}}\,\"proxyMetadata\":{\"DD_ENV\":\"${var.environment}\"\,\"DD_SERVICE\":\"istio-gateway\"\,\"DD_VERSION\":\"${var.istio_version}\"\,\"ISTIO_META_DNS_AUTO_ALLOCATE\":\"true\"\,\"ISTIO_META_DNS_CAPTURE\":\"true\"\,\"meshId\":\"default\"}
   EOF
 
-  istio_gateway_domains = keys(var.istio_gateway_dns)
+  istio_gateway_domains = keys(var.gateway_dns)
   name                  = var.node_location == null ? var.region : "${var.region}-${var.node_location}"
   multi_cluster_name    = "${var.cluster_prefix}-${var.region}-${local.env}"
 }

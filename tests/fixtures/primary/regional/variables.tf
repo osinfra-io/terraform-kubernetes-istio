@@ -10,7 +10,7 @@ variable "istio_control_plane_clusters" {
   default = null
 }
 
-variable "istio_gateway_dns" {
+variable "gateway_dns" {
   type = map(object({
     managed_zone = string
     project      = string
