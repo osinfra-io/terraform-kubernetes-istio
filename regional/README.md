@@ -64,8 +64,8 @@ No modules.
 | <a name="input_pilot_memory_requests"></a> [pilot\_memory\_requests](#input\_pilot\_memory\_requests) | The memory request for the Istio pilot | `string` | `"32Mi"` | no |
 | <a name="input_pilot_replica_count"></a> [pilot\_replica\_count](#input\_pilot\_replica\_count) | The number of Istio pilot replicas to run | `number` | `1` | no |
 | <a name="input_project"></a> [project](#input\_project) | The ID of the project in which the resource belongs | `string` | n/a | yes |
-| <a name="input_proxy_cpu_limits"></a> [proxy\_cpu\_limits](#input\_proxy\_cpu\_limits) | The CPU limit for the Istio proxy | `string` | `"50m"` | no |
-| <a name="input_proxy_cpu_requests"></a> [proxy\_cpu\_requests](#input\_proxy\_cpu\_requests) | The CPU request for the Istio proxy | `string` | `"25m"` | no |
+| <a name="input_proxy_cpu_limits"></a> [proxy\_cpu\_limits](#input\_proxy\_cpu\_limits) | The CPU limit for the Istio proxy | `string` | `"25m"` | no |
+| <a name="input_proxy_cpu_requests"></a> [proxy\_cpu\_requests](#input\_proxy\_cpu\_requests) | The CPU request for the Istio proxy | `string` | `"10m"` | no |
 | <a name="input_proxy_memory_limits"></a> [proxy\_memory\_limits](#input\_proxy\_memory\_limits) | The memory limit for the Istio proxy | `string` | `"64Mi"` | no |
 | <a name="input_proxy_memory_requests"></a> [proxy\_memory\_requests](#input\_proxy\_memory\_requests) | The memory request for the Istio proxy | `string` | `"32Mi"` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region in which the resource belongs | `string` | n/a | yes |
