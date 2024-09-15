@@ -25,7 +25,7 @@ podDisruptionBudget:
   maxUnavailable: 1
 
 service:
-  externalTrafficPolicy: "Local"
+  #externalTrafficPolicy: "Local"
   type: NodePort
 
   annotations:
