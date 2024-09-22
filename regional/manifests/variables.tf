@@ -1,3 +1,6 @@
+# Input Variables
+# https://www.terraform.io/language/values/variables
+
 variable "common_gke_info_virtual_services" {
   description = "The map of Istio VirtualServices to create for GKE Info, that are common among all regions"
   type = map(object({

@@ -73,8 +73,8 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 6.2.0 |
-| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | 6.2.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | 6.3.0 |
+| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | 6.3.0 |
 
 ### Modules
 
@@ -94,7 +94,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_gateway_dns"></a> [gateway\_dns](#input\_gateway\_dns) | Map of attributes for the Istio gateway domain names, it is also used to create the managed certificate resource | <pre>map(object({<br>    managed_zone = string<br>    project      = string<br>  }))</pre> | `{}` | no |
+| <a name="input_gateway_dns"></a> [gateway\_dns](#input\_gateway\_dns) | Map of attributes for the Istio gateway domain names, it is also used to create the managed certificate resource | <pre>map(object({<br/>    managed_zone = string<br/>    project      = string<br/>  }))</pre> | `{}` | no |
 | <a name="input_gke_fleet_host_project_id"></a> [gke\_fleet\_host\_project\_id](#input\_gke\_fleet\_host\_project\_id) | The project ID of the GKE Hub host project | `string` | `""` | no |
 | <a name="input_labels"></a> [labels](#input\_labels) | A map of key/value pairs to assign to the resources being created | `map(string)` | `{}` | no |
 | <a name="input_project"></a> [project](#input\_project) | The ID of the project in which the resource belongs | `string` | n/a | yes |

@@ -9,7 +9,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.32.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.31.0 |
 
 ## Modules
 
@@ -32,12 +32,12 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_common_gke_info_virtual_services"></a> [common\_gke\_info\_virtual\_services](#input\_common\_gke\_info\_virtual\_services) | The map of Istio VirtualServices to create for GKE Info, that are common among all regions | <pre>map(object({<br>    destination_host = string<br>    host             = string<br>  }))</pre> | n/a | yes |
-| <a name="input_common_virtual_services"></a> [common\_virtual\_services](#input\_common\_virtual\_services) | The map of Istio VirtualServices to create, that are common among all regions | <pre>map(object({<br>    destination_host = string<br>    destination_port = optional(number, 8080)<br>    host             = string<br>  }))</pre> | n/a | yes |
+| <a name="input_common_gke_info_virtual_services"></a> [common\_gke\_info\_virtual\_services](#input\_common\_gke\_info\_virtual\_services) | The map of Istio VirtualServices to create for GKE Info, that are common among all regions | <pre>map(object({<br/>    destination_host = string<br/>    host             = string<br/>  }))</pre> | n/a | yes |
+| <a name="input_common_virtual_services"></a> [common\_virtual\_services](#input\_common\_virtual\_services) | The map of Istio VirtualServices to create, that are common among all regions | <pre>map(object({<br/>    destination_host = string<br/>    destination_port = optional(number, 8080)<br/>    host             = string<br/>  }))</pre> | n/a | yes |
 | <a name="input_failover_from_region"></a> [failover\_from\_region](#input\_failover\_from\_region) | The region to fail over from | `string` | `""` | no |
 | <a name="input_failover_to_region"></a> [failover\_to\_region](#input\_failover\_to\_region) | The region to fail over to | `string` | `""` | no |
-| <a name="input_gke_info_virtual_services"></a> [gke\_info\_virtual\_services](#input\_gke\_info\_virtual\_services) | The map of Istio VirtualServices to create for GKE Info | <pre>map(object({<br>    destination_host = string<br>    host             = string<br>  }))</pre> | n/a | yes |
-| <a name="input_virtual_services"></a> [virtual\_services](#input\_virtual\_services) | The map of Istio VirtualServices to create, that are unique to a region | <pre>map(object({<br>    destination_host = string<br>    destination_port = optional(number, 8080)<br>    host             = string<br>  }))</pre> | n/a | yes |
+| <a name="input_gke_info_virtual_services"></a> [gke\_info\_virtual\_services](#input\_gke\_info\_virtual\_services) | The map of Istio VirtualServices to create for GKE Info | <pre>map(object({<br/>    destination_host = string<br/>    host             = string<br/>  }))</pre> | n/a | yes |
+| <a name="input_virtual_services"></a> [virtual\_services](#input\_virtual\_services) | The map of Istio VirtualServices to create, that are unique to a region | <pre>map(object({<br/>    destination_host = string<br/>    destination_port = optional(number, 8080)<br/>    host             = string<br/>  }))</pre> | n/a | yes |
 
 ## Outputs
 
