@@ -23,8 +23,7 @@ pilot:
     tags.datadoghq.com/source: istio
 
   env:
-    - name: ENABLE_CA_SERVER
-      value: "false"
+    ENABLE_CA_SERVER: "false"
 
   podAnnotations:
     ad.datadoghq.com/discovery.check_names: '["istio"]'
