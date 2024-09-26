@@ -1,4 +1,5 @@
 global:
+  caAddress: cert-manager-istio-csr.cert-manager.svc:443
   meshID: default
   network: standard-shared
 
@@ -20,6 +21,10 @@ pilot:
   deploymentLabels:
     tags.datadoghq.com/service: istio-control-plane
     tags.datadoghq.com/source: istio
+
+  env:
+    - name: ENABLE_CA_SERVER
+      value: "false"
 
   podAnnotations:
     ad.datadoghq.com/discovery.check_names: '["istio"]'
