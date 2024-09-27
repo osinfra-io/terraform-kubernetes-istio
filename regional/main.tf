@@ -466,7 +466,7 @@ resource "kubernetes_manifest" "istio_gateway_tls" {
     }
 
     spec = {
-      secretName = "gateway-tls"
+      secretName = "istio-gateway-tls"
       commonName = "istio.osinfra.io"
       dnsNames   = ["istio.osinfra.io"]
     }
