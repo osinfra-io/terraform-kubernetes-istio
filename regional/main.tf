@@ -468,6 +468,8 @@ resource "kubernetes_manifest" "istio_gateway_tls" {
     spec = {
       commonName = "istio.osinfra.io"
       dnsNames   = ["*"]
+      duration   = "2160h"
+      isCA       = false
 
       issuerRef = {
         name  = "istio-ca"
@@ -475,7 +477,9 @@ resource "kubernetes_manifest" "istio_gateway_tls" {
         group = "cert-manager.io"
       }
 
-      secretName = "istio-gateway-tls"
+      renewBefore = "360h"
+      secretName  = "istio-gateway-tls"
+      usages      = ["server auth"]
     }
   }
 }
