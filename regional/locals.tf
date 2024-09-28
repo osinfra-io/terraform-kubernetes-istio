@@ -5,7 +5,7 @@ locals {
   env = lookup(local.env_map, var.environment, "none")
 
   env_map = {
-    "non-production" = "non-prod"
+    "non-production" = "nonprod"
     "production"     = "prod"
     "sandbox"        = "sb"
 
