@@ -467,7 +467,7 @@ resource "kubernetes_manifest" "istio_gateway_tls" {
 
     spec = {
       commonName = "istio.osinfra.io"
-      dnsNames   = ["istio.osinfra.io"]
+      dnsNames   = ["*"]
 
       issuerRef = {
         name  = "istio-ca"
