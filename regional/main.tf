@@ -462,11 +462,11 @@ resource "kubernetes_manifest" "istio_gateway_tls" {
 
     metadata = {
       name      = "istio-gateway-tls"
-      namespace = "istio-ingress"
+      namespace = "istio-system"
     }
 
     spec = {
-      commonName = "istio.osinfra.io"
+      commonName = "istio-gateway.osinfra.io"
       dnsNames   = ["*"]
       duration   = "2160h"
       isCA       = false
