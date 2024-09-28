@@ -440,7 +440,7 @@ resource "kubernetes_manifest" "istio_ca_certificate" {
 resource "kubernetes_manifest" "istio_ca_issuer" {
   manifest = {
     apiVersion = "cert-manager.io/v1"
-    kind       = "Issuer"
+    kind       = "Issuer" # ClusterIssuer ??
 
     metadata = {
       name      = "istio-ca"
@@ -462,7 +462,7 @@ resource "kubernetes_manifest" "istio_gateway_tls" {
 
     metadata = {
       name      = "istio-gateway-tls"
-      namespace = "istio-system"
+      namespace = "istio-ingress"
     }
 
     spec = {
