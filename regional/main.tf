@@ -30,7 +30,7 @@ resource "google_dns_record_set" "istio_gateway" {
 resource "helm_release" "base" {
   chart      = "base"
   name       = "base"
-  namespace  = kubernetes_namespace_v1.istio_system.metadata.0.name
+  namespace  = "istio-system"
   repository = var.chart_repository
 
   values = [
@@ -43,7 +43,7 @@ resource "helm_release" "base" {
 resource "helm_release" "istiod" {
   chart      = "istiod"
   name       = "istiod"
-  namespace  = kubernetes_namespace_v1.istio_system.metadata.0.name
+  namespace  = "istio-system"
   repository = var.chart_repository
 
   set {
@@ -142,7 +142,7 @@ resource "helm_release" "gateway" {
 
   chart      = "gateway"
   name       = "gateway"
-  namespace  = kubernetes_namespace_v1.istio_ingress[0].metadata.0.name
+  namespace  = "istio-ingress"
   repository = var.chart_repository
 
   set {
@@ -217,7 +217,7 @@ resource "kubernetes_ingress_v1" "istio_gateway" {
 
   metadata {
     name      = "istio-gateway"
-    namespace = kubernetes_namespace_v1.istio_ingress[0].metadata.0.name
+    namespace = "istio-ingress"
 
     annotations = {
       "kubernetes.io/ingress.allow-http"            = "false"
@@ -263,7 +263,7 @@ resource "kubernetes_manifest" "istio_gateway_backendconfig" {
     kind       = "BackendConfig"
     metadata = {
       name      = "istio-gateway-backend"
-      namespace = kubernetes_namespace_v1.istio_ingress[0].metadata.0.name
+      namespace = "istio-ingress"
     }
     spec = {
       healthCheck = {
@@ -290,7 +290,7 @@ resource "kubernetes_manifest" "istio_gateway_frontendconfig" {
     kind       = "FrontendConfig"
     metadata = {
       name      = "istio-gateway-frontend"
-      namespace = kubernetes_namespace_v1.istio_ingress[0].metadata.0.name
+      namespace = "istio-ingress"
     }
     spec = {
       sslPolicy = "istio-gateway"
@@ -309,7 +309,7 @@ resource "kubernetes_manifest" "istio_gateway_managed_certificate" {
     kind       = "ManagedCertificate"
     metadata = {
       name      = "istio-gateway-tls"
-      namespace = kubernetes_namespace_v1.istio_ingress[0].metadata.0.name
+      namespace = "istio-ingress"
     }
     spec = {
       domains = local.gateway_domains
@@ -574,26 +574,5 @@ resource "kubernetes_manifest" "istio_gateway_selfsigned_issuer" {
     spec = {
       selfSigned = {}
     }
-  }
-}
-
-# Kubernetes Namespace Resource
-# https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace_v1
-
-resource "kubernetes_namespace_v1" "istio_ingress" {
-  count = var.enable_istio_gateway ? 1 : 0
-
-  metadata {
-    labels = {
-      "istio-injection" = "enabled"
-    }
-
-    name = "istio-ingress"
-  }
-}
-
-resource "kubernetes_namespace_v1" "istio_system" {
-  metadata {
-    name = "istio-system"
   }
 }
