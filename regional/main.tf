@@ -479,7 +479,11 @@ resource "kubernetes_manifest" "istio_gateway_tls" {
 
       renewBefore = "360h"
       secretName  = "istio-gateway-tls"
-      usages      = ["server auth"]
+
+      usages = [
+        "client auth",
+        "server auth"
+      ]
     }
   }
 }
