@@ -461,7 +461,7 @@ resource "kubernetes_manifest" "istio_gateway_tls" {
     kind       = "Certificate"
 
     metadata = {
-      name      = "ingress-cert"
+      name      = "istio-gateway-tls"
       namespace = "istio-ingress"
     }
 
