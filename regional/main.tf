@@ -466,9 +466,16 @@ resource "kubernetes_manifest" "istio_gateway_tls" {
     }
 
     spec = {
-      secretName = "istio-gateway-tls"
       commonName = "istio.osinfra.io"
       dnsNames   = ["istio.osinfra.io"]
+
+      issuerRef = {
+        name  = "istio-ca"
+        kind  = "Issuer"
+        group = "cert-manager.io"
+      }
+
+      secretName = "istio-gateway-tls"
     }
   }
 }
