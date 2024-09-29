@@ -12,7 +12,7 @@
 
 ## Repository Description
 
-Terraform **example** module for a Google Cloud Platform Kubernetes engine cluster.
+Terraform **example** module for Istio on Google Kubernetes Engine (GKE).
 
 > [!NOTE]
 > We do not recommend consuming this module like you might a [public module](https://registry.terraform.io/browse/modules). It is a baseline, something you can fork, potentially maintain, and modify to fit your organization's needs. Using public modules vs. writing your own has various [drivers and trade-offs](https://docs.osinfra.io/fundamentals/architecture-decision-records/adr-0003) that your organization should evaluate.
@@ -73,8 +73,8 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 6.2.0 |
-| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | 6.2.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | 6.4.0 |
+| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | 6.4.0 |
 
 ### Modules
 
