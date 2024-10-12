@@ -4,7 +4,7 @@
 locals {
   labels = {
     cost-center = "mock-x001"
-    env         = var.environment
+    env         = "mock-environment"
     repository  = "mock-repository"
     platform    = "mock-platform"
     team        = "mock-team"

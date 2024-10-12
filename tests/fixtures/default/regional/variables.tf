@@ -1,10 +1,6 @@
 # Input Variables
 # https://www.terraform.io/language/values/variables
 
-variable "environment" {
-  type = string
-}
-
 variable "gateway_dns" {
   type = map(object({
     managed_zone = string
@@ -13,13 +9,5 @@ variable "gateway_dns" {
 }
 
 variable "project" {
-  type = string
-}
-
-variable "region" {
-  type = string
-}
-
-variable "zone" {
   type = string
 }
