@@ -1,4 +1,4 @@
-# <img align="left" width="45" height="45" src="https://github.com/user-attachments/assets/ce1fe535-f4f3-451f-bbd9-45fde04c000c"> Kubernetes - Istio Terraform Module
+# <img align="left" width="45" height="45" src="https://github.com/user-attachments/assets/ce1fe535-f4f3-451f-bbd9-45fde04c000c">Kubernetes - Istio Terraform Module
 
 **[GitHub Actions](https://github.com/osinfra-io/terraform-kubernetes-istio/actions):**
 
