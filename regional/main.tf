@@ -451,6 +451,10 @@ resource "kubernetes_manifest" "istio_gateway_ca_issuer" {
       }
     }
   }
+
+  depends_on = [
+    kubernetes_manifest.istio_gateway_ca_certificate
+  ]
 }
 
 resource "kubernetes_manifest" "istio_gateway_tls" {
