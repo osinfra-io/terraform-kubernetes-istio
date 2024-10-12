@@ -47,7 +47,6 @@ No modules.
 | <a name="input_chart_repository"></a> [chart\_repository](#input\_chart\_repository) | The repository to pull the Istio Helm chart from | `string` | `"https://istio-release.storage.googleapis.com/charts"` | no |
 | <a name="input_cluster_prefix"></a> [cluster\_prefix](#input\_cluster\_prefix) | Prefix for your cluster name | `string` | n/a | yes |
 | <a name="input_enable_istio_gateway"></a> [enable\_istio\_gateway](#input\_enable\_istio\_gateway) | Enable the Istio gateway, used for ingress traffic into the mesh | `bool` | `false` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | The environment must be one of `sandbox`, `non-production`, `production` | `string` | `"sandbox"` | no |
 | <a name="input_gateway_autoscale_min"></a> [gateway\_autoscale\_min](#input\_gateway\_autoscale\_min) | The minimum number of gateway replicas to run | `number` | `1` | no |
 | <a name="input_gateway_cpu_limits"></a> [gateway\_cpu\_limits](#input\_gateway\_cpu\_limits) | The CPU limit for the Istio gateway | `string` | `"100m"` | no |
 | <a name="input_gateway_cpu_requests"></a> [gateway\_cpu\_requests](#input\_gateway\_cpu\_requests) | The CPU request for the Istio gateway | `string` | `"25m"` | no |
@@ -70,8 +69,6 @@ No modules.
 | <a name="input_proxy_cpu_requests"></a> [proxy\_cpu\_requests](#input\_proxy\_cpu\_requests) | The CPU request for the Istio proxy | `string` | `"10m"` | no |
 | <a name="input_proxy_memory_limits"></a> [proxy\_memory\_limits](#input\_proxy\_memory\_limits) | The memory limit for the Istio proxy | `string` | `"64Mi"` | no |
 | <a name="input_proxy_memory_requests"></a> [proxy\_memory\_requests](#input\_proxy\_memory\_requests) | The memory request for the Istio proxy | `string` | `"32Mi"` | no |
-| <a name="input_region"></a> [region](#input\_region) | The region in which the resource belongs | `string` | n/a | yes |
-| <a name="input_zone"></a> [zone](#input\_zone) | The zone to deploy the resources to | `string` | n/a | yes |
 
 ## Outputs
 

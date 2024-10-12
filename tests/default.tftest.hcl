@@ -50,13 +50,9 @@ run "default_regional" {
         project      = "mock-dns-project"
       }
     }
-
-    region                      = "mock-region"
-    zone                        = "mock-zone"
   }
 }
 
 variables {
-  environment = "mock-environment"
   project     = "mock-project"
 }

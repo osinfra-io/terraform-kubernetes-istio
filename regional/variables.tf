@@ -24,17 +24,6 @@ variable "enable_istio_gateway" {
   default     = false
 }
 
-variable "environment" {
-  description = "The environment must be one of `sandbox`, `non-production`, `production`"
-  type        = string
-  default     = "sandbox"
-
-  validation {
-    condition     = contains(["mock-environment", "sandbox", "non-production", "production"], var.environment)
-    error_message = "The environment must be one of `mock-environment` for tests or `sandbox`, `non-production`, or `production`."
-  }
-}
-
 variable "gateway_autoscale_min" {
   description = "The minimum number of gateway replicas to run"
   type        = number
@@ -169,14 +158,4 @@ variable "proxy_memory_requests" {
   description = "The memory request for the Istio proxy"
   type        = string
   default     = "32Mi"
-}
-
-variable "region" {
-  description = "The region in which the resource belongs"
-  type        = string
-}
-
-variable "zone" {
-  description = "The zone to deploy the resources to"
-  type        = string
 }

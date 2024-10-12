@@ -6,7 +6,7 @@ resource "google_compute_global_address" "istio_gateway" {
 
 
   labels  = var.labels
-  name    = "istio-gateway-${var.region}"
+  name    = "istio-gateway-${local.region}"
   project = var.project
 }
 
@@ -46,84 +46,12 @@ resource "helm_release" "istiod" {
   namespace  = "istio-system"
   repository = var.chart_repository
 
-  set {
-    name  = "global.hub"
-    value = "${var.artifact_registry}/istio"
-  }
-
-  set {
-    name  = "global.multiCluster.clusterName"
-    value = local.multi_cluster_name
-  }
-
-  set {
-    name  = "global.proxy.resources.limits.cpu"
-    value = var.proxy_cpu_limits
-  }
-
-  set {
-    name  = "global.proxy.resources.limits.memory"
-    value = var.proxy_memory_limits
-  }
-
-  set {
-    name  = "global.proxy.resources.requests.cpu"
-    value = var.proxy_cpu_requests
-  }
-
-  set {
-    name  = "global.proxy.resources.requests.memory"
-    value = var.proxy_memory_requests
-  }
-
-  set {
-    name  = "pilot.autoscaleMin"
-    value = var.pilot_autoscale_min
-  }
-
-  set {
-    name  = "pilot.deploymentLabels.tags\\.datadoghq\\.com/env"
-    value = var.environment
-  }
-
-  set {
-    name  = "pilot.deploymentLabels.tags\\.datadoghq\\.com/version"
-    value = var.istio_version
-  }
-
-  set {
-    name  = "pilot.podLabels.tags\\.datadoghq\\.com/env"
-    value = var.environment
-  }
-
-  set {
-    name  = "pilot.podLabels.tags\\.datadoghq\\.com/version"
-    value = var.istio_version
-  }
-
-  set {
-    name  = "pilot.resources.limits.cpu"
-    value = var.pilot_cpu_limits
-  }
-
-  set {
-    name  = "pilot.resources.limits.memory"
-    value = var.pilot_memory_limits
-  }
-
-  set {
-    name  = "pilot.resources.requests.cpu"
-    value = var.pilot_cpu_requests
-  }
-
-  set {
-    name  = "pilot.resources.requests.memory"
-    value = var.pilot_memory_requests
-  }
-
-  set {
-    name  = "pilot.replicaCount"
-    value = var.pilot_replica_count
+  dynamic "set" {
+    for_each = local.istiod_helm_values
+    content {
+      name  = set.key
+      value = set.value
+    }
   }
 
   values = [
@@ -145,57 +73,12 @@ resource "helm_release" "gateway" {
   namespace  = "istio-ingress"
   repository = var.chart_repository
 
-  set {
-    name  = "autoscaling.minReplicas"
-    value = var.gateway_autoscale_min
-  }
-
-  set {
-    name  = "labels.tags\\.datadoghq\\.com/env"
-    value = var.environment
-  }
-
-  set {
-    name  = "labels.tags\\.datadoghq\\.com/version"
-    value = var.istio_version
-  }
-
-  set {
-    name  = "podAnnotations.apm\\.datadoghq\\.com/env"
-    value = local.istio_gateway_datadog_apm_env
-  }
-
-  set {
-    name  = "podAnnotations.proxy\\.istio\\.io/config"
-    value = <<EOF
-    tracing:
-      datadog:
-        address: $(HOST_IP):8126
-    proxyMetadata:
-      DD_ENV: ${var.environment}
-      DD_SERVICE: istio-gateway
-      DD_VERSION: ${var.istio_version}
-    EOF
-  }
-
-  set {
-    name  = "resources.limits.cpu"
-    value = var.gateway_cpu_limits
-  }
-
-  set {
-    name  = "resources.limits.memory"
-    value = var.gateway_memory_limits
-  }
-
-  set {
-    name  = "resources.requests.cpu"
-    value = var.gateway_cpu_requests
-  }
-
-  set {
-    name  = "resources.requests.memory"
-    value = var.gateway_memory_requests
+  dynamic "set" {
+    for_each = local.gateway_helm_values
+    content {
+      name  = set.key
+      value = set.value
+    }
   }
 
   values = [
@@ -420,7 +303,7 @@ resource "kubernetes_manifest" "istio_gateway_ca_certificate" {
       isCA       = true
 
       issuerRef = {
-        name  = "selfsigned"
+        name  = kubernetes_manifest.istio_gateway_selfsigned_issuer[0].manifest.metadata.name
         kind  = "Issuer"
         group = "cert-manager.io"
       }
@@ -432,10 +315,6 @@ resource "kubernetes_manifest" "istio_gateway_ca_certificate" {
       }
     }
   }
-
-  depends_on = [
-    kubernetes_manifest.istio_gateway_selfsigned_issuer
-  ]
 }
 
 resource "kubernetes_manifest" "istio_gateway_ca_issuer" {
@@ -451,14 +330,10 @@ resource "kubernetes_manifest" "istio_gateway_ca_issuer" {
 
     spec = {
       ca = {
-        secretName = "istio-gateway-ca"
+        secretName = kubernetes_manifest.istio_gateway_ca_certificate[0].manifest.metadata.name
       }
     }
   }
-
-  depends_on = [
-    kubernetes_manifest.istio_gateway_ca_certificate
-  ]
 }
 
 resource "kubernetes_manifest" "istio_gateway_tls" {
@@ -479,7 +354,7 @@ resource "kubernetes_manifest" "istio_gateway_tls" {
       isCA       = false
 
       issuerRef = {
-        name  = "istio-gateway-ca"
+        name  = kubernetes_manifest.istio_gateway_ca_issuer[0].manifest.metadata.name
         kind  = "Issuer"
         group = "cert-manager.io"
       }
@@ -493,10 +368,6 @@ resource "kubernetes_manifest" "istio_gateway_tls" {
       ]
     }
   }
-
-  depends_on = [
-    kubernetes_manifest.istio_gateway_ca_issuer
-  ]
 }
 
 resource "kubernetes_manifest" "istio_gateway_selfsigned_issuer" {
