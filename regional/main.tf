@@ -405,6 +405,8 @@ resource "kubernetes_manifest" "istio_gateway_mci" {
 # Cert
 
 resource "kubernetes_manifest" "istio_gateway_ca_certificate" {
+  count = var.enable_istio_gateway ? 1 : 0
+
   manifest = {
     apiVersion = "cert-manager.io/v1"
     kind       = "Certificate"
@@ -435,6 +437,7 @@ resource "kubernetes_manifest" "istio_gateway_ca_certificate" {
 }
 
 resource "kubernetes_manifest" "istio_gateway_ca_issuer" {
+  count = var.enable_istio_gateway ? 1 : 0
   manifest = {
     apiVersion = "cert-manager.io/v1"
     kind       = "Issuer"
@@ -453,6 +456,7 @@ resource "kubernetes_manifest" "istio_gateway_ca_issuer" {
 }
 
 resource "kubernetes_manifest" "istio_gateway_tls" {
+  count = var.enable_istio_gateway ? 1 : 0
   manifest = {
     apiVersion = "cert-manager.io/v1"
     kind       = "Certificate"
@@ -486,6 +490,8 @@ resource "kubernetes_manifest" "istio_gateway_tls" {
 }
 
 resource "kubernetes_manifest" "istio_gateway_selfsigned_issuer" {
+  count = var.enable_istio_gateway ? 1 : 0
+
   manifest = {
     apiVersion = "cert-manager.io/v1"
     kind       = "Issuer"
