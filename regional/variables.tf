@@ -175,3 +175,8 @@ variable "region" {
   description = "The region in which the resource belongs"
   type        = string
 }
+
+variable "zone" {
+  description = "The zone to deploy the resources to"
+  type        = string
+}

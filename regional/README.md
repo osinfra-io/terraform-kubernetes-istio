@@ -71,6 +71,7 @@ No modules.
 | <a name="input_proxy_memory_limits"></a> [proxy\_memory\_limits](#input\_proxy\_memory\_limits) | The memory limit for the Istio proxy | `string` | `"64Mi"` | no |
 | <a name="input_proxy_memory_requests"></a> [proxy\_memory\_requests](#input\_proxy\_memory\_requests) | The memory request for the Istio proxy | `string` | `"32Mi"` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region in which the resource belongs | `string` | n/a | yes |
+| <a name="input_zone"></a> [zone](#input\_zone) | The zone to deploy the resources to | `string` | n/a | yes |
 
 ## Outputs
 
