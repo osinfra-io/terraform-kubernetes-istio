@@ -402,8 +402,6 @@ resource "kubernetes_manifest" "istio_gateway_mci" {
   }
 }
 
-# Cert
-
 resource "kubernetes_manifest" "istio_gateway_ca_certificate" {
   count = var.enable_istio_gateway ? 1 : 0
 
