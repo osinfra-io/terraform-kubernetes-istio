@@ -401,3 +401,118 @@ resource "kubernetes_manifest" "istio_gateway_mci" {
     }
   }
 }
+
+resource "kubernetes_manifest" "istio_gateway_ca_certificate" {
+  count = var.enable_istio_gateway ? 1 : 0
+
+  manifest = {
+    apiVersion = "cert-manager.io/v1"
+    kind       = "Certificate"
+
+    metadata = {
+      name      = "istio-gateway-ca"
+      namespace = "istio-ingress"
+    }
+
+    spec = {
+      commonName = "istio-gateway-ca"
+      duration   = "2160h"
+      isCA       = true
+
+      issuerRef = {
+        name  = "selfsigned"
+        kind  = "Issuer"
+        group = "cert-manager.io"
+      }
+
+      secretName = "istio-gateway-ca"
+
+      subject = {
+        organizations = ["istio.osinfra.io"]
+      }
+    }
+  }
+
+  depends_on = [
+    kubernetes_manifest.istio_gateway_selfsigned_issuer
+  ]
+}
+
+resource "kubernetes_manifest" "istio_gateway_ca_issuer" {
+  count = var.enable_istio_gateway ? 1 : 0
+  manifest = {
+    apiVersion = "cert-manager.io/v1"
+    kind       = "Issuer"
+
+    metadata = {
+      name      = "istio-gateway-ca"
+      namespace = "istio-ingress"
+    }
+
+    spec = {
+      ca = {
+        secretName = "istio-gateway-ca"
+      }
+    }
+  }
+
+  depends_on = [
+    kubernetes_manifest.istio_gateway_ca_certificate
+  ]
+}
+
+resource "kubernetes_manifest" "istio_gateway_tls" {
+  count = var.enable_istio_gateway ? 1 : 0
+  manifest = {
+    apiVersion = "cert-manager.io/v1"
+    kind       = "Certificate"
+
+    metadata = {
+      name      = "istio-gateway-tls"
+      namespace = "istio-ingress"
+    }
+
+    spec = {
+      commonName = "istio-gateway.osinfra.io"
+      dnsNames   = ["*"]
+      duration   = "2160h"
+      isCA       = false
+
+      issuerRef = {
+        name  = "istio-gateway-ca"
+        kind  = "Issuer"
+        group = "cert-manager.io"
+      }
+
+      renewBefore = "360h"
+      secretName  = "istio-gateway-tls"
+
+      usages = [
+        "client auth",
+        "server auth"
+      ]
+    }
+  }
+
+  depends_on = [
+    kubernetes_manifest.istio_gateway_ca_issuer
+  ]
+}
+
+resource "kubernetes_manifest" "istio_gateway_selfsigned_issuer" {
+  count = var.enable_istio_gateway ? 1 : 0
+
+  manifest = {
+    apiVersion = "cert-manager.io/v1"
+    kind       = "Issuer"
+
+    metadata = {
+      name      = "selfsigned"
+      namespace = "istio-ingress"
+    }
+
+    spec = {
+      selfSigned = {}
+    }
+  }
+}

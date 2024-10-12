@@ -51,7 +51,8 @@ run "default_regional" {
       }
     }
 
-    region                      = "mock-region-a"
+    region                      = "mock-region"
+    zone                        = "mock-zone"
   }
 }
 

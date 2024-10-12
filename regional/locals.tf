@@ -24,5 +24,5 @@ locals {
   EOF
 
   gateway_domains    = keys(var.gateway_dns)
-  multi_cluster_name = "${var.cluster_prefix}-${var.region}-${local.env}"
+  multi_cluster_name = "${var.cluster_prefix}-${var.region}-${var.zone}-${local.env}"
 }
