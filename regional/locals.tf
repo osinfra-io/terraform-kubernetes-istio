@@ -75,7 +75,7 @@ locals {
   EOF
 
   gateway_domains    = keys(var.gateway_dns)
-  multi_cluster_name = "${var.cluster_prefix}-${local.region}-${local.zone}-${local.env}"
+  multi_cluster_name = local.zone != null ? "${var.cluster_prefix}-${local.region}-${local.zone}-${local.env}" : "${var.cluster_prefix}-${local.region}-${local.env}"
 
   region = (
     terraform.workspace == "default" ?

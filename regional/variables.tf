@@ -14,7 +14,7 @@ variable "chart_repository" {
 }
 
 variable "cluster_prefix" {
-  description = "Prefix for your cluster name"
+  description = "Prefix for your cluster name, region, and zone (if applicable) will be added to the end of the cluster name"
   type        = string
 }
 
