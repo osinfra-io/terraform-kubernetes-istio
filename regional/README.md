@@ -11,13 +11,15 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 5.40.0 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.14.1 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.31.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | 6.8.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.16.1 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.33.0 |
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_helpers"></a> [helpers](#module\_helpers) | github.com/osinfra-io/terraform-core-helpers | v0.1.0 |
 
 ## Resources
 
@@ -54,6 +56,11 @@ No modules.
 | <a name="input_gateway_mci_global_address"></a> [gateway\_mci\_global\_address](#input\_gateway\_mci\_global\_address) | The IP address for the Istio Gateway multi-cluster ingress | `string` | `""` | no |
 | <a name="input_gateway_memory_limits"></a> [gateway\_memory\_limits](#input\_gateway\_memory\_limits) | The memory limit for the Istio gateway | `string` | `"64Mi"` | no |
 | <a name="input_gateway_memory_requests"></a> [gateway\_memory\_requests](#input\_gateway\_memory\_requests) | The memory request for the Istio gateway | `string` | `"32Mi"` | no |
+| <a name="input_helpers_cost_center"></a> [helpers\_cost\_center](#input\_helpers\_cost\_center) | The cost center the resources will be billed to, must start with 'x' followed by three or four digits | `string` | n/a | yes |
+| <a name="input_helpers_data_classification"></a> [helpers\_data\_classification](#input\_helpers\_data\_classification) | The data classification of the resources can be public, internal, or confidential | `string` | n/a | yes |
+| <a name="input_helpers_email"></a> [helpers\_email](#input\_helpers\_email) | The email address of the team responsible for the resources | `string` | n/a | yes |
+| <a name="input_helpers_repository"></a> [helpers\_repository](#input\_helpers\_repository) | The repository name (should be in the format 'owner/repo' containing only lowercase alphanumeric characters or hyphens) | `string` | n/a | yes |
+| <a name="input_helpers_team"></a> [helpers\_team](#input\_helpers\_team) | The team name (should contain only lowercase alphanumeric characters and hyphens) | `string` | n/a | yes |
 | <a name="input_istio_version"></a> [istio\_version](#input\_istio\_version) | The version to install, this is used for the chart as well as the image tag | `string` | `"1.23.2"` | no |
 | <a name="input_labels"></a> [labels](#input\_labels) | A map of key/value pairs to assign to the resources being created | `map(string)` | `{}` | no |
 | <a name="input_multi_cluster_service_clusters"></a> [multi\_cluster\_service\_clusters](#input\_multi\_cluster\_service\_clusters) | List of clusters to be included in the MultiClusterService | <pre>list(object({<br/>    link = string<br/>  }))</pre> | `[]` | no |

@@ -3,7 +3,7 @@
 
 locals {
   gateway_domains = keys(var.gateway_dns)
-
+  labels          = merge(module.helpers.labels, var.labels)
   preconfigured_waf_rules = [
     # Google Cloud Armor provides preconfigured WAF rules, each consisting of multiple signatures sourced from:
     # https://github.com/coreruleset/coreruleset/releases/tag/v3.3.3

@@ -22,10 +22,10 @@ provider "helm" {
   kubernetes {
 
     cluster_ca_certificate = base64decode(
-      local.regional.cluster_ca_certificate
+      data.google_container_cluster.this.master_auth[0].cluster_ca_certificate
     )
 
-    host  = local.regional.cluster_endpoint
+    host  = data.google_container_cluster.this.endpoint
     token = data.google_client_config.current.access_token
   }
 }
@@ -35,10 +35,10 @@ provider "helm" {
 
 provider "kubernetes" {
   cluster_ca_certificate = base64decode(
-    local.regional.cluster_ca_certificate
+    data.google_container_cluster.this.master_auth[0].cluster_ca_certificate
   )
 
-  host  = "https://${local.regional.cluster_endpoint}"
+  host  = data.google_container_cluster.this.endpoint
   token = data.google_client_config.current.access_token
 }
 
@@ -48,26 +48,31 @@ provider "kubernetes" {
 data "google_client_config" "current" {
 }
 
-# Remote State Data Source
-# https://www.terraform.io/language/state/remote-state-data
+# Google Container Cluster Data Source
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/container_cluster
 
-data "terraform_remote_state" "regional" {
-  backend   = "gcs"
-  workspace = "mock-workspace"
-
-  config = {
-    bucket = "mock-bucket"
-  }
+data "google_container_cluster" "this" {
+  name     = "mock-cluster"
+  location = "mock-region"
+  project  = var.project
 }
 
 module "test" {
   source = "../../../../regional"
 
-  artifact_registry    = "mock-docker.pkg.dev/mock-project/mock-virtual"
-  cluster_prefix       = "mock"
-  enable_istio_gateway = true
-  gateway_dns          = var.gateway_dns
-  labels               = local.labels
+  artifact_registry           = "mock-docker.pkg.dev/mock-project/mock-virtual"
+  cluster_prefix              = "mock"
+  enable_istio_gateway        = true
+  gateway_dns                 = var.gateway_dns
+  helpers_cost_center         = var.helpers_cost_center
+  helpers_data_classification = var.helpers_data_classification
+  helpers_email               = var.helpers_email
+  helpers_repository          = var.helpers_repository
+  helpers_team                = var.helpers_team
+
+  labels = {
+    mock-key = "mock-value"
+  }
 
   multi_cluster_service_clusters = [
     {
