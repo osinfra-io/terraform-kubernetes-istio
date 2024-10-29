@@ -54,7 +54,7 @@ data "google_client_config" "current" {
 data "google_container_cluster" "this" {
   name     = "mock-cluster"
   location = "mock-region"
-  project  = var.project
+  project  = "mock-project"
 }
 
 module "test" {
