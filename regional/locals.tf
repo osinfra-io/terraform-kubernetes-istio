@@ -2,20 +2,6 @@
 # https://www.terraform.io/docs/language/values/locals.html
 
 locals {
-  env = lookup(local.env_map, local.environment, "none")
-
-  environment = (
-    terraform.workspace == "default" ?
-    "mock-environment" :
-    regex(".*-(?P<environment>[^-]+)$", terraform.workspace)["environment"]
-  )
-
-  env_map = {
-    "non-production" = "nonprod"
-    "production"     = "prod"
-    "sandbox"        = "sb"
-  }
-
   gateway_helm_values = {
     "autoscaling.minReplicas"                  = var.gateway_autoscale_min
     "labels.tags\\.datadoghq\\.com/env"        = local.environment
@@ -76,20 +62,4 @@ locals {
 
   gateway_domains    = keys(var.gateway_dns)
   multi_cluster_name = local.zone != null ? "${var.cluster_prefix}-${local.region}-${local.zone}-${local.env}" : "${var.cluster_prefix}-${local.region}-${local.env}"
-
-  region = (
-    terraform.workspace == "default" ?
-    "mock-region" :
-    regex("^(?P<region>[^-]+-[^-]+)", terraform.workspace)["region"]
-  )
-
-  zone = (
-    terraform.workspace == "default" ?
-    "mock-zone" :
-    (
-      regex("^(?P<region>[^-]+-[^-]+)(?:-(?P<zone>[^-]+))?-.*$", terraform.workspace)["zone"] != "" ?
-      regex("^(?P<region>[^-]+-[^-]+)(?:-(?P<zone>[^-]+))?-.*$", terraform.workspace)["zone"] :
-      null
-    )
-  )
 }

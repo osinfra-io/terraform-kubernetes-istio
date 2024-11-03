@@ -15,51 +15,6 @@ terraform {
   }
 }
 
-# Helm Provider
-# https://registry.terraform.io/providers/hashicorp/helm/latest
-
-provider "helm" {
-  kubernetes {
-
-    cluster_ca_certificate = base64decode(
-      local.regional.cluster_ca_certificate
-    )
-
-    host  = local.regional.cluster_endpoint
-    token = data.google_client_config.current.access_token
-  }
-}
-
-# Kubernetes Provider
-# https://registry.terraform.io/providers/hashicorp/kubernetes/latest
-
-provider "kubernetes" {
-  cluster_ca_certificate = base64decode(
-    local.regional.cluster_ca_certificate
-  )
-
-  host  = "https://${local.regional.cluster_endpoint}"
-  token = data.google_client_config.current.access_token
-}
-
-# Google Client Config Data Source
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/client_config
-
-data "google_client_config" "current" {
-}
-
-# Remote State Data Source
-# https://www.terraform.io/language/state/remote-state-data
-
-data "terraform_remote_state" "regional" {
-  backend   = "gcs"
-  workspace = "mock-workspace"
-
-  config = {
-    bucket = "mock-bucket"
-  }
-}
-
 module "test" {
   source = "../../../../regional"
 
@@ -67,7 +22,10 @@ module "test" {
   cluster_prefix       = "mock"
   enable_istio_gateway = true
   gateway_dns          = var.gateway_dns
-  labels               = local.labels
+
+  labels = {
+    "mock-key" = "mock-value"
+  }
 
   multi_cluster_service_clusters = [
     {
