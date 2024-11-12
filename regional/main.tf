@@ -6,7 +6,7 @@ resource "google_compute_global_address" "istio_gateway" {
 
 
   labels  = var.labels
-  name    = "istio-gateway-${local.region}"
+  name    = "istio-gateway-${module.helpers.region}"
   project = var.project
 }
 
@@ -32,10 +32,6 @@ resource "helm_release" "base" {
   name       = "base"
   namespace  = "istio-system"
   repository = var.chart_repository
-
-  values = [
-    file("${path.module}/helm/base.yml")
-  ]
 
   version = var.istio_version
 }
