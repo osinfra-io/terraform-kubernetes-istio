@@ -2,5 +2,5 @@
 # https://github.com/osinfra-io/terraform-core-helpers
 
 module "helpers" {
-  source = "github.com/osinfra-io/terraform-core-helpers//child?ref=multuse"
+  source = "github.com/osinfra-io/terraform-core-helpers//child?ref=v0.1.2"
 }
