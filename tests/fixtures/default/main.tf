@@ -16,6 +16,10 @@ module "test" {
   source = "../../../"
 
   gateway_dns = var.gateway_dns
-  labels      = local.labels
-  project     = var.project
+
+  labels = {
+    "mock-key" = "mock-value"
+  }
+
+  project = var.project
 }
