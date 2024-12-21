@@ -11,9 +11,9 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 6.11.1 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.16.1 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.33.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | 6.14.1 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.17.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.35.1 |
 
 ## Modules
 
@@ -56,7 +56,7 @@ No requirements.
 | <a name="input_gateway_mci_global_address"></a> [gateway\_mci\_global\_address](#input\_gateway\_mci\_global\_address) | The IP address for the Istio Gateway multi-cluster ingress | `string` | `""` | no |
 | <a name="input_gateway_memory_limits"></a> [gateway\_memory\_limits](#input\_gateway\_memory\_limits) | The memory limit for the Istio gateway | `string` | `"64Mi"` | no |
 | <a name="input_gateway_memory_requests"></a> [gateway\_memory\_requests](#input\_gateway\_memory\_requests) | The memory request for the Istio gateway | `string` | `"32Mi"` | no |
-| <a name="input_istio_version"></a> [istio\_version](#input\_istio\_version) | The version to install, this is used for the chart as well as the image tag | `string` | `"1.24.0"` | no |
+| <a name="input_istio_version"></a> [istio\_version](#input\_istio\_version) | The version to install, this is used for the chart as well as the image tag | `string` | `"1.24.2"` | no |
 | <a name="input_labels"></a> [labels](#input\_labels) | A map of key/value pairs to assign to the resources being created | `map(string)` | `{}` | no |
 | <a name="input_multi_cluster_service_clusters"></a> [multi\_cluster\_service\_clusters](#input\_multi\_cluster\_service\_clusters) | List of clusters to be included in the MultiClusterService | <pre>list(object({<br/>    link = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_node_location"></a> [node\_location](#input\_node\_location) | The zone in which the cluster's nodes should be located. If not specified, the cluster's nodes are located across zones in the region | `string` | `null` | no |
