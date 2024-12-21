@@ -29,11 +29,12 @@ repos:
       - id: terraform_docs
 
   - repo: https://github.com/bridgecrewio/checkov.git
-    rev: 3.2.296
+    rev: 3.2.343
     hooks:
       - id: checkov
         verbose: true
         args:
+          - --download-external-modules=true
           - --skip-check
           - "CKV_TF_1"
           - --quiet
