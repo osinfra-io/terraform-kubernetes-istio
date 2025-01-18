@@ -1,8 +1,8 @@
 # Input Variables
 # https://www.terraform.io/language/values/variables
 
-variable "common_gke_info_virtual_services" {
-  description = "The map of Istio VirtualServices to create for GKE Info, that are common among all regions"
+variable "common_istio_test_virtual_services" {
+  description = "The map of Istio VirtualServices to create for Istio testing, that are common among all regions"
   type = map(object({
     destination_host = string
     host             = string
@@ -30,8 +30,8 @@ variable "failover_to_region" {
   default     = ""
 }
 
-variable "gke_info_virtual_services" {
-  description = "The map of Istio VirtualServices to create for GKE Info"
+variable "istio_test_virtual_services" {
+  description = "The map of Istio VirtualServices to create for Istio testing"
   type = map(object({
     destination_host = string
     host             = string

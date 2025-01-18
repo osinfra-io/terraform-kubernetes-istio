@@ -225,8 +225,8 @@ resource "kubernetes_manifest" "istio_virtual_services" {
   }
 }
 
-resource "kubernetes_manifest" "gke_info_istio_virtual_services" {
-  for_each = merge(var.gke_info_virtual_services, var.common_gke_info_virtual_services)
+resource "kubernetes_manifest" "istio_test_istio_virtual_services" {
+  for_each = merge(var.istio_test_virtual_services, var.istio_test_virtual_services)
 
   manifest = {
     apiVersion = "networking.istio.io/v1beta1"
@@ -250,7 +250,7 @@ resource "kubernetes_manifest" "gke_info_istio_virtual_services" {
           match = [
             {
               uri = {
-                prefix = "/gke-info-go"
+                prefix = "/istio-test"
               }
             }
           ]
