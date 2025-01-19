@@ -118,38 +118,38 @@ resource "kubernetes_manifest" "istio_gateway" {
   }
 }
 
-# resource "kubernetes_manifest" "istio_gateway_authorization_policy" {
-#   manifest = {
-#     apiVersion = "security.istio.io/v1"
-#     kind       = "AuthorizationPolicy"
+resource "kubernetes_manifest" "istio_gateway_authorization_policy" {
+  manifest = {
+    apiVersion = "security.istio.io/v1"
+    kind       = "AuthorizationPolicy"
 
-#     metadata = {
-#       name      = "allow-all-gateway"
-#       namespace = "istio-ingress"
-#     }
+    metadata = {
+      name      = "allow-all-gateway"
+      namespace = "istio-ingress"
+    }
 
-#     spec = {
-#       action = "ALLOW"
-#       rules = [
-#         {
-#           to = [
-#             {
-#               operation = {
-#                 methods = ["*"]
-#               }
-#             }
-#           ]
-#         }
-#       ]
+    spec = {
+      action = "ALLOW"
+      rules = [
+        {
+          to = [
+            {
+              operation = {
+                methods = ["*"]
+              }
+            }
+          ]
+        }
+      ]
 
-#       selector = {
-#         matchLabels = {
-#           istio = "gateway"
-#         }
-#       }
-#     }
-#   }
-# }
+      selector = {
+        matchLabels = {
+          istio = "gateway"
+        }
+      }
+    }
+  }
+}
 
 resource "kubernetes_manifest" "istio_peer_authentication" {
   manifest = {
@@ -169,22 +169,22 @@ resource "kubernetes_manifest" "istio_peer_authentication" {
   }
 }
 
-# resource "kubernetes_manifest" "istio_authorization_policy" {
-#   manifest = {
-#     apiVersion = "security.istio.io/v1"
-#     kind       = "AuthorizationPolicy"
+resource "kubernetes_manifest" "istio_authorization_policy" {
+  manifest = {
+    apiVersion = "security.istio.io/v1"
+    kind       = "AuthorizationPolicy"
 
-#     metadata = {
-#       name      = "deny-all"
-#       namespace = "istio-system"
-#     }
+    metadata = {
+      name      = "deny-all"
+      namespace = "istio-system"
+    }
 
-#     # It's recommended to define authorization policies following the default-deny pattern to enhance your cluster’s security posture.
-#     # The spec field of the policy has the empty value {}. That value means that no traffic is permitted, effectively denying all requests.
+    # It's recommended to define authorization policies following the default-deny pattern to enhance your cluster’s security posture.
+    # The spec field of the policy has the empty value {}. That value means that no traffic is permitted, effectively denying all requests.
 
-#     spec = {}
-#   }
-# }
+    spec = {}
+  }
+}
 
 resource "kubernetes_manifest" "istio_virtual_services" {
   for_each = merge(var.virtual_services, var.common_virtual_services)
