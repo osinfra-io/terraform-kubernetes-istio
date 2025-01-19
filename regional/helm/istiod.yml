@@ -1,7 +1,5 @@
 global:
   caAddress: cert-manager-istio-csr.cert-manager.svc:443
-  certSigners:
-    - clusterissuers.cert-manager.io/istio-ca
   meshID: default
   network: standard-shared
 
