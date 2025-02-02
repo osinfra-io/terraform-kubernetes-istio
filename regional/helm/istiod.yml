@@ -7,7 +7,7 @@ meshConfig:
   accessLogFile: /dev/stdout
   defaultConfig:
     proxyMetadata:
-      ECC_CURVE: "P384"
+      ECC_CURVE: "P256"
       ECC_SIGNATURE_ALGORITHM: "ECDSA"
       ISTIO_META_DNS_CAPTURE: "true"
       ISTIO_META_DNS_AUTO_ALLOCATE: "true"
