@@ -7,7 +7,8 @@ meshConfig:
   accessLogFile: /dev/stdout
   defaultConfig:
     proxyMetadata:
-      GRPC_ENFORCE_ALPN_ENABLED: "false" # This can be removed once https://github.com/cert-manager/istio-csr/pull/422 is released
+      ECC_CURVE: "P256"
+      ECC_SIGNATURE_ALGORITHM: "ECDSA"
       ISTIO_META_DNS_CAPTURE: "true"
       ISTIO_META_DNS_AUTO_ALLOCATE: "true"
 
