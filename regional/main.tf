@@ -367,7 +367,7 @@ resource "kubernetes_manifest" "istio_gateway_intermediate_ca_issuer" {
     kind       = "Issuer"
 
     metadata = {
-      name      = "istio-intermediate-ca"
+      name      = "istio-gateway-intermediate-ca"
       namespace = "istio-ingress"
     }
 
