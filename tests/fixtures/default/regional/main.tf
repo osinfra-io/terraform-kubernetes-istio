@@ -33,5 +33,7 @@ module "test" {
     }
   ]
 
-  project = var.project
+  project                                     = var.project
+  tls_self_signed_cert_cert_manager_root_cert = "mock-cert"
+  tls_self_signed_cert_cert_manager_root_key  = "mock-key"
 }
