@@ -289,48 +289,38 @@ resource "kubernetes_manifest" "istio_gateway_ca_certificate" {
     kind       = "Certificate"
 
     metadata = {
-      name      = "istio-gateway-ca"
+      name      = "istio-ca"
       namespace = "istio-ingress"
     }
 
     spec = {
-      commonName = "istio-gateway-ca"
-      duration   = "2160h"
-      isCA       = true
+      isCA = true
 
       issuerRef = {
-        name  = kubernetes_manifest.istio_gateway_selfsigned_issuer[0].manifest.metadata.name
+        name  = kubernetes_manifest.istio_gateway_intermediate_ca_issuer[0].manifest.metadata.name
         kind  = "Issuer"
         group = "cert-manager.io"
       }
 
-      secretName = "istio-gateway-ca"
+      commonName = "istio-intermediate-ca.osinfra.io"
+      duration   = "720h"
+
+
+      privateKey = {
+        algorithm = "ECDSA"
+        size      = 256
+      }
+
+      secretName = "istio-ca"
 
       subject = {
-        organizations = ["istio.osinfra.io"]
+        organizations = ["Open Source Infrastructure (as Code) Istio Gateway Intermediate CA"]
       }
     }
   }
 }
 
-resource "kubernetes_manifest" "istio_gateway_ca_issuer" {
-  count = var.enable_istio_gateway ? 1 : 0
-  manifest = {
-    apiVersion = "cert-manager.io/v1"
-    kind       = "Issuer"
 
-    metadata = {
-      name      = "istio-gateway-ca"
-      namespace = "istio-ingress"
-    }
-
-    spec = {
-      ca = {
-        secretName = kubernetes_manifest.istio_gateway_ca_certificate[0].manifest.metadata.name
-      }
-    }
-  }
-}
 
 resource "kubernetes_manifest" "istio_gateway_tls" {
   count = var.enable_istio_gateway ? 1 : 0
@@ -346,27 +336,30 @@ resource "kubernetes_manifest" "istio_gateway_tls" {
     spec = {
       commonName = "istio-gateway.osinfra.io"
       dnsNames   = ["*"]
-      duration   = "2160h"
+      duration   = "720h"
       isCA       = false
 
       issuerRef = {
-        name  = kubernetes_manifest.istio_gateway_ca_issuer[0].manifest.metadata.name
+        name  = kubernetes_manifest.istio_gateway_intermediate_ca_issuer[0].manifest.metadata.name
         kind  = "Issuer"
         group = "cert-manager.io"
       }
 
-      renewBefore = "360h"
-      secretName  = "istio-gateway-tls"
+      privateKey = {
+        algorithm = "ECDSA"
+        size      = 256
+      }
 
-      usages = [
-        "client auth",
-        "server auth"
-      ]
+      secretName = "istio-gateway-tls"
+
+      subject = {
+        organizations = ["Open Source Infrastructure (as Code) Istio Gateway"]
+      }
     }
   }
 }
 
-resource "kubernetes_manifest" "istio_gateway_selfsigned_issuer" {
+resource "kubernetes_manifest" "istio_gateway_intermediate_ca_issuer" {
   count = var.enable_istio_gateway ? 1 : 0
 
   manifest = {
@@ -374,12 +367,29 @@ resource "kubernetes_manifest" "istio_gateway_selfsigned_issuer" {
     kind       = "Issuer"
 
     metadata = {
-      name      = "selfsigned"
+      name      = "istio-intermediate-ca"
       namespace = "istio-ingress"
     }
 
     spec = {
-      selfSigned = {}
+      ca = {
+        secretName = kubernetes_secret_v1.istio_cert_manager_ca[0].metadata[0].name
+      }
     }
+  }
+}
+
+
+resource "kubernetes_secret_v1" "istio_cert_manager_ca" {
+  count = var.enable_istio_gateway ? 1 : 0
+
+  metadata {
+    name      = "cert-manager-ca"
+    namespace = "istio-ingress"
+  }
+
+  data = {
+    "tls.crt" = var.tls_self_signed_cert_cert_manager_root_cert
+    "tls.key" = var.tls_self_signed_cert_cert_manager_root_key
   }
 }
