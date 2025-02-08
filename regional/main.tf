@@ -289,7 +289,7 @@ resource "kubernetes_manifest" "istio_gateway_ca_certificate" {
     kind       = "Certificate"
 
     metadata = {
-      name      = "istio-ca"
+      name      = "istio-gateway-ca"
       namespace = "istio-ingress"
     }
 
@@ -302,7 +302,7 @@ resource "kubernetes_manifest" "istio_gateway_ca_certificate" {
         group = "cert-manager.io"
       }
 
-      commonName = "istio-intermediate-ca.osinfra.io"
+      commonName = "istio-gateway-intermediate-ca.osinfra.io"
       duration   = "720h"
 
 
@@ -311,7 +311,7 @@ resource "kubernetes_manifest" "istio_gateway_ca_certificate" {
         size      = 256
       }
 
-      secretName = "istio-ca"
+      secretName = "istio-gateway-ca"
 
       subject = {
         organizations = ["Open Source Infrastructure (as Code) Istio Gateway Intermediate CA"]
