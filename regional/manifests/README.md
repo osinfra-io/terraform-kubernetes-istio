@@ -9,7 +9,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.35.1 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.36.0 |
 
 ## Modules
 
