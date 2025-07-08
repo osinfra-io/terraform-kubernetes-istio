@@ -2,7 +2,7 @@
 # https://www.terraform.io/docs/language/values/locals.html
 
 locals {
-  gateway_helm_values = {
+  gateway_helm_values_map = {
     "autoscaling.minReplicas"                  = var.gateway_autoscale_min
     "labels.tags\\.datadoghq\\.com/env"        = module.helpers.environment
     "labels.tags\\.datadoghq\\.com/version"    = var.istio_version
@@ -22,7 +22,14 @@ locals {
     "resources.requests.memory"                = var.gateway_memory_requests
   }
 
-  istiod_helm_values = {
+  gateway_helm_values = [
+    for k, v in local.gateway_helm_values_map : {
+      name  = k
+      value = v
+    }
+  ]
+
+  istiod_helm_values_map = {
     "global.hub"                                            = "${var.artifact_registry}/istio"
     "global.multiCluster.clusterName"                       = local.multi_cluster_name
     "global.proxy.resources.limits.cpu"                     = var.proxy_cpu_limits
@@ -40,6 +47,13 @@ locals {
     "pilot.resources.requests.memory"                       = var.pilot_memory_requests
     "pilot.replicaCount"                                    = var.pilot_replica_count
   }
+
+  istiod_helm_values = [
+    for k, v in local.istiod_helm_values_map : {
+      name  = k
+      value = v
+    }
+  ]
 
   istio_gateway_datadog_apm_env = <<EOF
     {

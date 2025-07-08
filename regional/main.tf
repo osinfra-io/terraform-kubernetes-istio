@@ -41,14 +41,7 @@ resource "helm_release" "istiod" {
   name       = "istiod"
   namespace  = "istio-system"
   repository = var.chart_repository
-
-  dynamic "set" {
-    for_each = local.istiod_helm_values
-    content {
-      name  = set.key
-      value = set.value
-    }
-  }
+  set        = local.istiod_helm_values
 
   values = [
     file("${path.module}/helm/istiod.yml")
@@ -68,14 +61,7 @@ resource "helm_release" "gateway" {
   name       = "gateway"
   namespace  = "istio-ingress"
   repository = var.chart_repository
-
-  dynamic "set" {
-    for_each = local.gateway_helm_values
-    content {
-      name  = set.key
-      value = set.value
-    }
-  }
+  set        = local.gateway_helm_values
 
   values = [
     file("${path.module}/helm/gateway.yml")
