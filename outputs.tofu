@@ -1,5 +1,5 @@
 # Output Values
-# https://www.terraform.io/language/values/outputs
+# https://opentofu.org/docs/language/values/outputs
 
 output "gateway_mci_global_address" {
   description = "The IP address for the Istio Gateway multi-cluster ingress"

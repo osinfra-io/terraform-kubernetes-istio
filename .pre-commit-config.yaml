@@ -10,31 +10,16 @@ repos:
       - id: trailing-whitespace
       - id: check-symlinks
 
-  - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.99.4
+  - repo: https://github.com/osinfra-io/pre-commit-hooks
+    rev: v0.1.1
     hooks:
-      - id: terraform_fmt
-
-      # To speed up local validation add the following to your ~/.zshrc:
-      # export TF_PLUGIN_CACHE_DIR=$HOME/.terraform.d/plugin-cache
-
-      - id: terraform_validate
-        args:
-          - --hook-config=--retry-once-with-cleanup=true
-          - --tf-init-args=-upgrade
-        exclude: tests/fixtures/shared
-
-      # Always run after terraform_validate
-
-      - id: terraform_docs
-
-  - repo: https://github.com/bridgecrewio/checkov.git
-    rev: 3.2.443
-    hooks:
-      - id: checkov
+      - id: tofu-fmt
         verbose: true
-        args:
-          - --download-external-modules=true
-          - --skip-check
-          - "CKV_TF_1"
-          - --quiet
+
+      # To speed up local validation:
+      # mkdir -p $HOME/.opentofu.d/plugin-cache
+      # Add the following to your ~/.zshrc:
+      # export TF_PLUGIN_CACHE_DIR=$HOME/.opentofu.d/plugin-cache
+
+      - id: tofu-validate
+        verbose: true

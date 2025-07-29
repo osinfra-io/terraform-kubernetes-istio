@@ -1,8 +1,8 @@
-# <img align="left" width="45" height="45" src="https://github.com/user-attachments/assets/ce1fe535-f4f3-451f-bbd9-45fde04c000c">Kubernetes - Istio Terraform Module
+# <img align="left" width="45" height="45" src="https://github.com/user-attachments/assets/ce1fe535-f4f3-451f-bbd9-45fde04c000c">Kubernetes - Istio OpenTofu Module
 
-**[GitHub Actions](https://github.com/osinfra-io/terraform-kubernetes-istio/actions):**
+**[GitHub Actions](https://github.com/osinfra-io/opentofu-kubernetes-istio/actions):**
 
-[![Terraform Tests](https://github.com/osinfra-io/terraform-kubernetes-istio/actions/workflows/test.yml/badge.svg)](https://github.com/osinfra-io/terraform-kubernetes-istio/actions/workflows/test.yml) [![Dependabot](https://github.com/osinfra-io/terraform-kubernetes-istio/actions/workflows/dependabot.yml/badge.svg)](https://github.com/osinfra-io/terraform-kubernetes-istio/actions/workflows/dependabot.yml)
+[![OpenTofu Tests](https://github.com/osinfra-io/opentofu-kubernetes-istio/actions/workflows/test.yml/badge.svg)](https://github.com/osinfra-io/opentofu-kubernetes-istio/actions/workflows/test.yml) [![Dependabot](https://github.com/osinfra-io/opentofu-kubernetes-istio/actions/workflows/dependabot.yml/badge.svg)](https://github.com/osinfra-io/opentofu-kubernetes-istio/actions/workflows/dependabot.yml)
 
 **[Infracost](https://www.infracost.io):**
 
@@ -12,7 +12,7 @@
 
 ## Repository Description
 
-Terraform **example** module for Istio on Google Kubernetes Engine (GKE).
+OpenTofu **example** module for Istio on Google Kubernetes Engine (GKE).
 
 > [!NOTE]
 > We do not recommend consuming this module like you might a [public module](https://registry.terraform.io/browse/modules). It is a baseline, something you can fork, potentially maintain, and modify to fit your organization's needs. Using public modules vs. writing your own has various [drivers and trade-offs](https://docs.osinfra.io/fundamentals/architecture-decision-records/adr-0003) that your organization should evaluate.
@@ -28,18 +28,16 @@ Our focus is on the core fundamental practice of platform engineering, Infrastru
 
 >Open Source Infrastructure (as Code) is a development model for infrastructure that focuses on open collaboration and applying relative lessons learned from software development practices that organizations can use internally at scale. - [Open Source Infrastructure (as Code)](https://www.osinfra.io)
 
-To avoid slowing down stream-aligned teams, we want to open up the possibility for contributions. The Open Source Infrastructure (as Code) model allows team members external to the platform team to contribute with only a slight increase in cognitive load. This section is for developers who want to contribute to this repository, describing the tools used, the skills, and the knowledge required, along with Terraform documentation.
+To avoid slowing down stream-aligned teams, we want to open up the possibility for contributions. The Open Source Infrastructure (as Code) model allows team members external to the platform team to contribute with only a slight increase in cognitive load. This section is for developers who want to contribute to this repository, describing the tools used, the skills, and the knowledge required, along with OpenTofu documentation.
 
 See the [documentation](https://docs.osinfra.io/fundamentals/development-setup) for setting up a local development environment.
 
 ### 🛠️ Tools
 
-- [checkov](https://github.com/bridgecrewio/checkov)
 - [helm](https://github.com/helm/helm)
 - [infracost](https://github.com/infracost/infracost)
+- [osinfra-pre-commit-hooks](https://github.com/osinfra-io/pre-commit-hooks)
 - [pre-commit](https://github.com/pre-commit/pre-commit)
-- [pre-commit-terraform](https://github.com/antonbabenko/pre-commit-terraform)
-- [terraform-docs](https://github.com/terraform-docs/terraform-docs)
 
 ### 📋 Skills and Knowledge
 
@@ -50,7 +48,7 @@ Links to documentation and other resources required to develop and iterate in th
 
 ### 🔍 Tests
 
-All tests are [mocked](https://developer.hashicorp.com/terraform/language/tests/mocking) allowing us to test the module without creating infrastructure or requiring credentials. The trade-offs are acceptable in favor of speed and simplicity. In a Terraform test, a mocked provider or resource will generate fake data for all computed attributes that would normally be provided by the underlying provider APIs.
+All tests are [mocked](https://developer.hashicorp.com/terraform/language/tests/mocking) allowing us to test the module without creating infrastructure or requiring credentials. The trade-offs are acceptable in favor of speed and simplicity. In a OpenTofu test, a mocked provider or resource will generate fake data for all computed attributes that would normally be provided by the underlying provider APIs.
 
 ```none
 terraform init
@@ -60,54 +58,6 @@ terraform init
 terraform test
 ```
 
-## 📓 Terraform Documentation
+## 📓 OpenTofu Documentation
 
 > A child module automatically inherits default (un-aliased) provider configurations from its parent. The provider versions below are informational only and do **not** need to align with the provider configurations from its parent.
-
-<!-- BEGIN_TF_DOCS -->
-### Requirements
-
-No requirements.
-
-### Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 6.40.0 |
-| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | 6.40.0 |
-
-### Modules
-
-No modules.
-
-### Resources
-
-| Name | Type |
-|------|------|
-| [google-beta_google_compute_security_policy.istio_gateway](https://registry.terraform.io/providers/hashicorp/google-beta/latest/docs/resources/google_compute_security_policy) | resource |
-| [google_compute_global_address.istio_gateway_mci](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_address) | resource |
-| [google_compute_managed_ssl_certificate.istio_gateway_mci](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_managed_ssl_certificate) | resource |
-| [google_compute_ssl_policy.istio_gateway](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_ssl_policy) | resource |
-| [google_dns_record_set.istio_gateway_mci](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/dns_record_set) | resource |
-
-### Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_gateway_dns"></a> [gateway\_dns](#input\_gateway\_dns) | Map of attributes for the Istio gateway domain names, it is also used to create the managed certificate resource | <pre>map(object({<br/>    managed_zone = string<br/>    project      = string<br/>  }))</pre> | `{}` | no |
-| <a name="input_gke_fleet_host_project_id"></a> [gke\_fleet\_host\_project\_id](#input\_gke\_fleet\_host\_project\_id) | The project ID of the GKE Hub host project | `string` | `""` | no |
-| <a name="input_labels"></a> [labels](#input\_labels) | A map of key/value pairs to assign to the resources being created | `map(string)` | `{}` | no |
-| <a name="input_project"></a> [project](#input\_project) | The ID of the project in which the resource belongs | `string` | n/a | yes |
-
-### Outputs
-
-| Name | Description |
-|------|-------------|
-| <a name="output_gateway_mci_global_address"></a> [gateway\_mci\_global\_address](#output\_gateway\_mci\_global\_address) | The IP address for the Istio Gateway multi-cluster ingress |
-| <a name="output_gateway_mci_ssl_certificate_name"></a> [gateway\_mci\_ssl\_certificate\_name](#output\_gateway\_mci\_ssl\_certificate\_name) | The name of the SSL certificate for the Istio Gateway multi-cluster ingress |
-<!-- END_TF_DOCS -->
-
-## 📓 Terraform Regional Documentation
-
-- [regional](regional/README.md)
-- [regional/manifests](regional/manifests/README.md)

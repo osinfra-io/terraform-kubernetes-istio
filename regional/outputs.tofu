@@ -1,5 +1,5 @@
 # Output Values
-# https://www.terraform.io/docs/language/values/outputs.html
+# https://opentofu.org/docs/language/values/outputs
 
 output "gateway_ip" {
   description = "The IP address of the Istio Gateway"

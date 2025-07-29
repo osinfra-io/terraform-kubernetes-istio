@@ -1,5 +1,5 @@
 # Local Values
-# https://www.terraform.io/docs/language/values/locals.html
+# https://opentofu.org/docs/language/values/locals
 
 locals {
   gateway_domains = keys(var.gateway_dns)
