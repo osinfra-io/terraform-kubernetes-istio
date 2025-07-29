@@ -1,4 +1,4 @@
-# Terraform Core Child Module Helpers (osinfra.io)
+# OpenTofu Core Child Module Helpers (osinfra.io)
 # https://github.com/osinfra-io/terraform-core-helpers
 
 module "helpers" {

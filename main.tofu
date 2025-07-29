@@ -1,5 +1,5 @@
 # Google Compute Global Address Resource
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_address
+# https://search.opentofu.org/provider/hashicorp/google/latest/docs/resources/compute_global_address
 
 resource "google_compute_global_address" "istio_gateway_mci" {
   count = var.gke_fleet_host_project_id == "" ? 1 : 0
@@ -10,7 +10,7 @@ resource "google_compute_global_address" "istio_gateway_mci" {
 }
 
 # Google Compute Managed SSL Certificate Resource
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_managed_ssl_certificate
+# https://search.opentofu.org/provider/hashicorp/google/latest/docs/resources/compute_managed_ssl_certificate
 
 # The declarative generation of a Kubernetes ManagedCertificate resource is not supported on
 # MultiClusterIngress resources. #36
@@ -27,7 +27,7 @@ resource "google_compute_managed_ssl_certificate" "istio_gateway_mci" {
 }
 
 # Google Compute Security Policy Resource
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_security_policy
+# https://search.opentofu.org/provider/hashicorp/google/latest/docs/resources/compute_security_policy
 
 resource "google_compute_security_policy" "istio_gateway" {
   provider = google-beta # Required for the adaptive_protection_config auto_deploy_config block
@@ -131,7 +131,7 @@ resource "google_compute_security_policy" "istio_gateway" {
 }
 
 # Google Compute SSL Policy Resource
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_ssl_policy
+# https://search.opentofu.org/provider/hashicorp/google/latest/docs/resources/compute_ssl_policy
 
 resource "google_compute_ssl_policy" "istio_gateway" {
   count = var.gke_fleet_host_project_id == "" ? 1 : 0
@@ -143,7 +143,7 @@ resource "google_compute_ssl_policy" "istio_gateway" {
 }
 
 # DNS Record Set Resource
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/dns_record_set
+# https://search.opentofu.org/provider/hashicorp/google/latest/docs/resources/dns_record_set
 
 resource "google_dns_record_set" "istio_gateway_mci" {
   for_each = var.gateway_dns

@@ -1,5 +1,5 @@
 # Input Variables
-# https://www.terraform.io/language/values/variables
+# https://opentofu.org/docs/language/values/variables
 
 variable "common_istio_test_virtual_services" {
   description = "The map of Istio VirtualServices to create for Istio testing, that are common among all regions"

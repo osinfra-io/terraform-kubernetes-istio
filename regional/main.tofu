@@ -1,5 +1,5 @@
 # Google Compute Global Address Resource
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_address
+# https://search.opentofu.org/provider/hashicorp/google/latest/docs/resources/compute_global_address
 
 resource "google_compute_global_address" "istio_gateway" {
   count = var.enable_istio_gateway ? 1 : 0
@@ -11,7 +11,7 @@ resource "google_compute_global_address" "istio_gateway" {
 }
 
 # DNS Record Set Resource
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/dns_record_set
+# https://search.opentofu.org/provider/hashicorp/google/latest/docs/resources/dns_record_set
 
 resource "google_dns_record_set" "istio_gateway" {
   for_each = var.gateway_dns
@@ -25,7 +25,7 @@ resource "google_dns_record_set" "istio_gateway" {
 }
 
 # Helm Release
-# https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release
+# https://search.opentofu.org/provider/hashicorp/helm/latest/docs/resources/release
 
 resource "helm_release" "base" {
   chart      = "base"
@@ -75,7 +75,7 @@ resource "helm_release" "gateway" {
 }
 
 # Kubernetes Ingress Resource
-# https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/ingress_v1
+# https://search.opentofu.org/provider/hashicorp/kubernetes/latest/docs/resources/ingress_v1
 
 resource "kubernetes_ingress_v1" "istio_gateway" {
   count = var.enable_istio_gateway ? 1 : 0
@@ -118,7 +118,7 @@ resource "kubernetes_ingress_v1" "istio_gateway" {
 
 
 # Kubernetes Manifest Resource
-# https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest
+# https://search.opentofu.org/provider/hashicorp/kubernetes/latest/docs/resources/manifest
 
 resource "kubernetes_manifest" "istio_gateway_backendconfig" {
   count = var.enable_istio_gateway ? 1 : 0

@@ -1,4 +1,4 @@
-name: Terraform Tests
+name: OpenTofu Tests
 
 on:
   workflow_dispatch:
@@ -10,14 +10,12 @@ on:
       - "**.md"
 
 permissions:
-  id-token: write
+  contents: read
 
 jobs:
   tests:
     name: Tests
-    uses: osinfra-io/github-terraform-gcp-called-workflows/.github/workflows/test.yml@v0.2.6
+    uses: osinfra-io/github-terraform-gcp-called-workflows/.github/workflows/test.yml@e067c396b92a716f0ea384764ef6b8e1714dfa54
     if: github.actor != 'dependabot[bot]'
     with:
-      service_account: plt-lz-testing-github@plt-lz-terraform-tf00-sb.iam.gserviceaccount.com
-      terraform_version: ${{ vars.TERRAFORM_VERSION }}
-      workload_identity_provider: projects/746490462722/locations/global/workloadIdentityPools/github-actions/providers/github-actions-oidc
+      opentofu_version: ${{ vars.OPENTOFU_VERSION }}
