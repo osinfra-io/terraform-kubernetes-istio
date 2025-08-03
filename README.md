@@ -4,12 +4,6 @@
 
 [![OpenTofu Tests](https://github.com/osinfra-io/opentofu-kubernetes-istio/actions/workflows/test.yml/badge.svg)](https://github.com/osinfra-io/opentofu-kubernetes-istio/actions/workflows/test.yml) [![Dependabot](https://github.com/osinfra-io/opentofu-kubernetes-istio/actions/workflows/dependabot.yml/badge.svg)](https://github.com/osinfra-io/opentofu-kubernetes-istio/actions/workflows/dependabot.yml)
 
-**[Infracost](https://www.infracost.io):**
-
-[![infracost](https://img.shields.io/endpoint?url=https://dashboard.api.infracost.io/shields/json/cbeecfe3-576f-4553-984c-e451a575ee47/repos/925e2406-d209-4aca-847d-21257bc478a5/branch/72fc4157-6bf8-46c0-9d51-593f3cd5bdef)](https://dashboard.infracost.io/org/osinfra-io/repos/925e2406-d209-4aca-847d-21257bc478a5?tab=settings)
-
-💵 Monthly estimates based on Infracost baseline costs.
-
 ## Repository Description
 
 OpenTofu **example** module for Istio on Google Kubernetes Engine (GKE).
@@ -35,7 +29,6 @@ See the [documentation](https://docs.osinfra.io/fundamentals/development-setup) 
 ### 🛠️ Tools
 
 - [helm](https://github.com/helm/helm)
-- [infracost](https://github.com/infracost/infracost)
 - [osinfra-pre-commit-hooks](https://github.com/osinfra-io/pre-commit-hooks)
 - [pre-commit](https://github.com/pre-commit/pre-commit)
 
@@ -56,6 +49,15 @@ tofu init
 
 ```none
 tofu test
+```
+
+### 📦 Release
+
+To release a new version, simply push a new tag to the repository. The tag should be in the format `vX.Y.Z` where `X`, `Y`, and `Z` are integers.
+
+```none
+git tag vX.Y.Z
+git push origin vX.Y.Z
 ```
 
 ## 📓 OpenTofu Documentation
