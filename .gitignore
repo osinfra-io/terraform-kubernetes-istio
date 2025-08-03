@@ -12,9 +12,6 @@
 # Ignore plan output files
 plan.out
 
-# Ignore Infracost directories and files
-.infracost
-
 # Other Files
 *.log
 *.bak
