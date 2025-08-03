@@ -24,7 +24,7 @@ Our focus is on the core fundamental practice of platform engineering, Infrastru
 
 To avoid slowing down stream-aligned teams, we want to open up the possibility for contributions. The Open Source Infrastructure (as Code) model allows team members external to the platform team to contribute with only a slight increase in cognitive load. This section is for developers who want to contribute to this repository, describing the tools used, the skills, and the knowledge required, along with OpenTofu documentation.
 
-See the [documentation](https://docs.osinfra.io/fundamentals/development-setup) for setting up a local development environment.ment.
+See the [documentation](https://docs.osinfra.io/fundamentals/development-setup) for setting up a local development environment.
 
 ### 🛠️ Tools
 
