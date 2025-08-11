@@ -31,11 +31,7 @@ resource "google_compute_managed_ssl_certificate" "istio_gateway_mci" {
 
 resource "google_compute_security_policy" "istio_gateway" {
   provider = google-beta # Required for the adaptive_protection_config auto_deploy_config block
-
-  # Ensure Cloud Armor prevents message lookup in Log4j2
-  # checkov:skip=CKV_GCP_73: False positive
-
-  count = var.gke_fleet_host_project_id == "" ? 1 : 0
+  count    = var.gke_fleet_host_project_id == "" ? 1 : 0
 
   adaptive_protection_config {
     auto_deploy_config {
